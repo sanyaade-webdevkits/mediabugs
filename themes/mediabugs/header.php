@@ -63,15 +63,8 @@
 	<!-- begin login status -->
 	<div id="top_bar">
 		<div class="grid">
-			<div class="column_6">
-				Drag the <a href="javascript:(function(){
-	  _my_script=document.createElement('SCRIPT');
-	  _my_script.type='text/javascript';
-	  _my_script.src='<?= $POD->siteRoot(); ?>/bookmarklet/mediabugs.js?x='+(Math.random());
-	  document.getElementsByTagName('head')[0].appendChild(_my_script);
-	})();" class="bookmarklet">Report an Error</a> bookmarklet to your toolbar <img src="<? $POD->templateDir(); ?>/img/snag.png" alt="Drag to toolbar!" border="0" align="absmiddle" />
-			</div>
-			<div class="column_6 last" id="login_status">
+
+			<div class="column_12 last" id="login_status">
 	
 				<? if ($POD->isAuthenticated()) { ?>
 					Welcome, <a href="<? $POD->currentUser()->write('permalink'); ?>" title="View My Profile"><? $POD->currentUser()->write('nick'); ?></a> |
