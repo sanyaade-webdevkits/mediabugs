@@ -167,26 +167,6 @@
 							<div class="clearer"></div>
 					</div>	
 				</li>
-				<? if ($POD->isAuthenticated()) { ?>
-					<li id="nav_my"><a href="<? $POD->siteRoot(); ?>/dashboard">My bugs</a></li>
-				<? } ?>
-				<li id="nav_about">
-					<a href="<? $POD->siteRoot(); ?>/pages/about">About</a>
-					<? 
-						$about = $POD->getContent(array('stub'=>'about'));
-						if ($about->success()) {
-						$links = $about->children();
-						$links->sortBy('weight',true);
-					?>
-					<ul>
-						<? foreach ($links as $link) { ?>
-							<li><a href="<?= $link->permalink; ?>"><?= $link->short_headline; ?></a></li>
-						<? } ?>
-					</ul>
-					<? } ?>
-				</li>
-				<li id="nav_help"><a href="<? $POD->siteRoot(); ?>/pages/help">Help</a></li>
-				<li id="nav_contact"><a href="<? $POD->siteRoot(); ?>/pages/contact">Contact</a></li>
 			</ul>
 			</div>
 			<div class="column_4_simple last">		
