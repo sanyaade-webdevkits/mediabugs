@@ -69,11 +69,6 @@
 
 
 	<div  id="welcome_block">
-		<div class="welcome_box" id="features">
-			<div class="column_padding">
-				<? $POD->getContent(array('stub'=>'features_box'))->output('interface_text'); ?>
-			</div>
-		</div>
 		<div class="welcome_box" id="welcome_explain">
 			<div class="column_padding">
 			<? $welcome_message->output('interface_text'); ?>
