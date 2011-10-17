@@ -29,12 +29,7 @@
 	$bug_types = $POD->bugTypes();
 
 
-	// load welcome message
-	if ($POD->isAuthenticated()) { 
-		$welcome_message = $POD->getContent(array('stub'=>'welcome-message-loggedin'));	
-	} else { 
-		$welcome_message = $POD->getContent(array('stub'=>'welcome-message'));
-	}
+	$welcome_message = $POD->getContent(array('stub'=>'welcome-message'));
 
 	if (!$interesting->success()) { 
 		$msg =  $interesting->error();
