@@ -1,0 +1,15 @@
+.bug_display{
+
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #b6daae;
+}
+
+
+.bug_display img{
+
+    float: left;
+    margin-right: 20px;
+}
+
+
+

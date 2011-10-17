@@ -1,0 +1,17 @@
+
+	include_once('/home/smithma/aarp/akismet/Akismet.class.php');
+	
+	$WordPressAPIKey = '80270455832c';
+	$MyBlogURL = 'http://sixwordmemoirs.aarpmagazine.org/';
+
+	$akismet = new Akismet($MyBlogURL ,$WordPressAPIKey);
+	$akismet->setCommentAuthor($_POST['name']);
+	$akismet->setCommentAuthorEmail($_POST['email']);
+//	$akismet->setCommentAuthorURL($url);
+	$akismet->setCommentContent($_POST['body']);
+//	$akismet->setPermalink('http://www.example.com/blog/alex/someurl/');
+
+
+
+	if ($akismet->isCommentSpam() || preg_match("/comm/i",$_POST['body'])) { 
+	
