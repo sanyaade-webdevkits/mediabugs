@@ -112,7 +112,6 @@
 							<div class="col">	
 								<ul>
 
-									<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/outlet">Browse by Media Outlet</a>
 									<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/date">Browse by Date</a>
 									</li>
 									<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/date?sort=modification">Browse by Recent Activity</a></li>
@@ -145,17 +144,6 @@
 										<div class="clearer"></div>
 									</li>
 								</ul>
-							</div>
-							<div class="map">
-								<ul>
-	
-									<li>
-										<a href="<? $POD->siteRoot(); ?>/bugs/browse/region">Browse by Region</a>
-										<? $POD->output('regionmap_400'); ?>            
-										<div class="clearer"></div>	
-									</li>
-								</ul>
-							
 							</div>
 							<div class="clearer"></div>
 					</div>	
