@@ -65,12 +65,10 @@
 
 	<div  id="welcome_block">
 		<div class="welcome_box" id="welcome_explain">
-			<div class="column_padding">
 			<? $welcome_message->output('interface_text'); ?>
 			<div id="homepage_submit">
 				<a href="<? $POD->siteRoot(); ?>/bugs/edit" class="button">Report a Bug Now</a>
 				<div class="clearer"></div>
-			</div>
 			</div>
 		</div>	
 

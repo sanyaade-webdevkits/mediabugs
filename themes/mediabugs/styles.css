@@ -279,7 +279,7 @@
 #features { width: 219px; float: left; border-right:1px solid #CCC;}
 #features h3 { color: #CCC; font-size: 18px; font-family: Arial, sans-serif; font-weight: bold; margin-bottom:20px;  }
 
-#welcome_explain { width: 420px; float: left;}
+#welcome_explain { float: left;}
 #welcome_explain .column_padding { margin-left: 20px; margin-right:20px; }
 #welcome_video { width: 300px; float: left; }
 
