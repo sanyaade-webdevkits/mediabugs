@@ -118,13 +118,3 @@
 	</div>
 
 	<div class="clearer"></div>
-
-	<div id="below_fold">	
-		<div class="column_3">
-			<? $POD->output('sidebars/member_leaderboard'); ?>
-		</div>
-		<div class="column_7 last">
-			<? $POD->output('sidebars/recent_blogs'); ?>
-		</div>
-		<div class="clearer"></div>
-	</div>
