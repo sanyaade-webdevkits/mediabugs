@@ -114,8 +114,6 @@
 			
 		<? $POD->output('sidebars/recent_bugs'); ?>
 		
-		<? $POD->output('sidebars/twitter'); ?>
-
 		<? $POD->output('sidebars/browse'); ?>
 	</div>
 
