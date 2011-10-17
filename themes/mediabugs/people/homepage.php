@@ -22,7 +22,9 @@
 		$offset = $_GET['offset'];
 	}
 
-	$interesting = $POD->interestingBugs(5,$offset);
+	$interesting = $POD->getContents(
+		array('type'=>'bug'),
+		'date DESC', 20);
 	// load bug types
 	$bug_types = $POD->bugTypes();
 
