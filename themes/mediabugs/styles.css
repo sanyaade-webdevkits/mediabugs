@@ -443,7 +443,7 @@ span.required { color: #F00; font-weight: bold; }
 #saving_progress { text-align: center; font-size: 20px; }
 
 
-.stack_bugs_to_watch .stack_header { font-family:Arial, sans-serif; font-size:300%; font-weight: bold; color:#56a7d7; padding-top:0em;}
+.stack_recent_bugs .stack_header { font-family:Arial, sans-serif; font-size:300%; font-weight: bold; color:#56a7d7; padding-top:0em;}
 
 
 
