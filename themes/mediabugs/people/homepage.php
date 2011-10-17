@@ -81,12 +81,7 @@
 			</div>
 			</div>
 		</div>	
-		<div class="welcome_box" id="welcome_video">
-			<div>
-				<object width="280" height="157"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=13021709&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=13021709&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="280" height="157"></embed></object>
-			</div>
-		</div>
-	
+
 		<div class="clearer"></div>	
 	</div>
 	
