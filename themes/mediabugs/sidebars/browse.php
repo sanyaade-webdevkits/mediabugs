@@ -8,9 +8,6 @@
 					<a href="<? $POD->siteRoot(); ?>/bugs/browse/type">Browse by Type</a>
 				</li>
 				<li>
-					<a href="<? $POD->siteRoot(); ?>/bugs/browse/outlet">Browse by Media Outlet</a>
-				</li>
-				<li>
 					Browse by Status
 					<ul>
 						<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/status?q=open"><img src="<? $POD->templateDir(); ?>/img/status_icons/open_20.png" align="absmiddle" alt="Open" border="0">&nbsp;Open</a></li>
