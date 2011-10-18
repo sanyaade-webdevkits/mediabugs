@@ -81,7 +81,7 @@
 	<div id="header">
 		<div class="grid">
 			<div class="column_5">
-				<a href="<? $POD->siteRoot(); ?>" title="MediaBugs Homepage"><img src="<? $POD->templateDir(); ?>/img/mediabugs_logo.png" id="logo" border="0" alt="MediaBugs" width="361" height="100"/></a>	
+				<h1><?php $POD->siteName() ?></h1>
 			</div>
 			<div class="column_7 last" id="spreader">
 		
