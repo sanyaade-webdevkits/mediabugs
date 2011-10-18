@@ -641,12 +641,10 @@
 						}
 						if (json.media_outlet_response) { 
 							$('#did_media_outlet_respond').show();
+							$('#media_outlet_response').html(json.media_outlet_response);
 						} else {	
 							$('#did_media_outlet_respond').hide();
 						}
-
-						$('#media_outlet_response').html(json.media_outlet_response);
-
 					} else {
 						alert(json.error);
 					}	
