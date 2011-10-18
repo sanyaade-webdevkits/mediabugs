@@ -14,6 +14,8 @@
 * Documentation for this pod can be found here:
 * http://peoplepods.net/readme/themes
 /**********************************************/
+
+$adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -83,18 +85,17 @@
 			<div class="column_5">
 				<h1><?php $POD->siteName() ?></h1>
 			</div>
-			<div class="column_7 last" id="spreader">
-		
-				<div class="column_3">
-					&nbsp;
+			
+			<?php if ($adminRecord 
+				&& !empty($adminRecord->publication_name)
+				&& !empty($adminRecord->publication_url)):
+			?>
+				<div class="column_7 last right_align">
+					<a href='<?php echo $adminRecord->publication_url ?>'>
+						Back to <?php echo $adminRecord->publication_name ?>
+					</a>
 				</div>
-				<div class="column_4_simple last social_widgets">
-					<div class="column_padding">
-						<iframe src="http://www.facebook.com/plugins/like.php?href=<?= urlencode($_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]); ?>&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:280px; height:35px;" allowTransparency="true"></iframe>
-						<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="media_bugs">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-					</div>
-				</div>
-			</div>
+			<?php endif ?>
 			<div class="clearer"></div>
 		</div>		
 	</div>
