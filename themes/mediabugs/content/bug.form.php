@@ -37,6 +37,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 	$instructions_survey = $POD->getContent(array('stub'=>'instructions-survey'));
 	$instructions_survey_thanks = $POD->getContent(array('stub'=>'instructions-survey-thanks'));
 	
+	$outlet = $POD->getContents(array('type'=>'admin_record'))->getNext()->publication_name;
 
 
 ?>
@@ -117,14 +118,11 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 					</p>
 					
 					<p class="input" id="media_outlet_search">
-							<label for="media_outlet">Media outlet where this story appeared: <span class="required">*</label>
-							<input name="bug_target" id="media_outlet_q" class="text required" value="<? if ($media_outlet) { $media_outlet->htmlspecialwrite('headline'); }  if ($doc->suggested_outlet) { $doc->htmlspecialwrite('suggested_outlet'); } ?>" onblur="mo_newcheck();" title="Pick an outlet from the list, or suggest a new outlet by entering its full name." />
+							<label for="media_outlet">Media outlet where this story appeared:</label>
+							<input name="bug_target" id="media_outlet_q" class="text required" 
+								value="<?php if ($outlet) echo $outlet ?>" disabled />
 							<input name="meta_bug_target" type="hidden" value="<? $doc->bug_target; ?>" id="media_outlet_id" />
 					</p>
-		
-					<div  id="media_outlet_new" style="display:none;">
-						<p class="input"><strong>You are the first person to report a bug about this media outlet.</strong></p>
-					</div>
 					
 					<p class="input">
 						<label for="reporter">
