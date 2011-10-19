@@ -210,12 +210,6 @@
 						<div class="sidebar">
 							<h3>Subscribe</h3>
 							<p><a href="/bugs/feeds/<?= $mode ?>?q=<?= urlencode($rawterm); ?>">Subscribe to these results via RSS</a> to receive new bugs in your feed reader.</p>
-							<? if ($POD->isAuthenticated() && $mode && $rawterm) { ?>
-							
-								<p><?= $POD->toggleBot($subscribed,'togglesub','Stop receiving updates','E-mail me updates','method=toggleSub&keyword='.urlencode($rawterm)."&type=".urlencode($mode)); ?>
-									whenever a bug is added to this list.
-								</p>
-							<? } ?>
 						</div>
 					<? } ?>
 			
