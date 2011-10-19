@@ -252,9 +252,3 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 	<? $POD->output('sidebars/browse'); ?>
 	
 </div>
-
-<? if ($_GET['msg'] == "Bug saved!") { ?>
-	<script type="text/javascript">
-		showStatusChange();
-	</script>
-<? } ?>
