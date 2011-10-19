@@ -6,7 +6,7 @@ $POD = new PeoplePod(array(
 	'lockdown'=>'adminUser'
 ));
 
-header('Content-type: text/plain')
+header('Content-type: text/plain');
 
 if ($POD->libOptions('mediabugs_onetime_setup')) {
 	echo "The MediaBugs install script has already run.\n";
