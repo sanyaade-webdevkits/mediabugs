@@ -83,7 +83,6 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	} else {
 		$POD->setLibOptions('mediabugs_onetime_setup', '1');
 		$POD->setLibOptions('currentTheme','mediabugs');
-		$POD->saveLibOptions();
 		$POD->saveLibOptions(true);
 		echo "\nAll done!";
 	}
