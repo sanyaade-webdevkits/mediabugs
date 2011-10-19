@@ -147,9 +147,6 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 					<li><a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="media_bugs">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
 					<? if ($POD->isAuthenticated()) { ?>
 						<li><a id="sendlink" href="<? $POD->siteRoot(); ?>/send?id=<?= $doc->id; ?>">Send</a></li>
-						<li><?= $POD->toggleBot($doc->hasFlag('report',$POD->currentUser()),'toggleflag','Flagged','Flag a problem','method=toggleFlag&flag=report&content='.$doc->id); ?></li>
-					<? } else { ?>
-						<li><a id="toggleflag" href="<? $POD->siteRoot(); ?>/join?redirect=<?= $doc->permalink; ?>">Flag a problem</a></li>
 					<? } ?>
 				</ul>
 				<div class="clearer"></div>
