@@ -82,6 +82,8 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		echo "\nThere were problems during the install process. Fix your setup and try again";
 	} else {
 		$POD->setLibOptions('mediabugs_onetime_setup', '1');
+		$POD->setLibOptions('currentTheme','mediabugs');
+		$POD->saveLibOptions();
 		$POD->saveLibOptions(true);
 		echo "\nAll done!";
 	}
