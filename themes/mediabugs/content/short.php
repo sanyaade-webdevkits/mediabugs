@@ -20,7 +20,7 @@
 		</div>
 
 		<a href="<?= $doc->permalink; ?>" class="bug_title" title="View this bug report"><?= $doc->bugHeadline(); ?></a>
-		<span class="byline">Reported by <? $doc->author()->permalink(); ?> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
+		<span class="byline">Reported by <b><?php echo $doc->author()->nick ?></b> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
 		<p><?= $doc->bugSummary(); ?></p>
 		<div class="clearer"></div>
 	</div>
