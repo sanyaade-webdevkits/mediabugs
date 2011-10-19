@@ -9,7 +9,7 @@
 			<h3><A href="<? $POD->siteRoot(); ?>/peoplepods/admin">PeoplePods Command Center</a></h3>
 	
 
-			<h3><a href="<? $POD->siteRoot(); ?>/peoplepods/admin/content/search.php?type=bug&userId=<?= $POD->anonymousAccount(); ?>">Moderate Anonymous Bugs</a></h3>
+			<h3><a href="<? $POD->siteRoot(); ?>/peoplepods/admin/content/search.php?type=bug&amp;userId=<?= $POD->anonymousAccount(); ?>">Moderate Anonymous Bugs</a></h3>
 			<p>These bugs were submitted by someone without an account.  They will not appear in the browse section of the site
 			until they are approved.</p>
 
