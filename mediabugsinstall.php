@@ -81,6 +81,16 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	$POD->loadAvailablePods();
 	
+	echo "\nAbout to disable irrelevant pods";
+	$irrelevant_pods = array(
+		'core_profiles'
+	);
+	
+	foreach ($irrelevant_pods as $p) {
+		echo "\nUninstalling $p";
+		$POD->disablePOD($p);
+	}
+	
 	echo "\nAbout to activate all the mediabugs pods...";
 	$pods = array(
 		'bugs_api',
@@ -118,7 +128,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	}
 	$POD->saveLibOptions();
 	if (!$POD->success()) {
-		echo "\nthere was an error installing these pods.";
+		echo "\nthere was an error installing/disabling these pods.";
 		$errored = true;
 	} else {
 		echo "\nSUCCESS!\n";
