@@ -60,7 +60,8 @@
 	// this is the install script, it should set shit up for you.
 
 			
-		if ($POD->success() && $POD->hasAdminUser() &&  $POD->isAuthenticated() && $POD->currentUser()->get('adminUser')) { 
+  if ($POD->success() && $POD->hasAdminUser() &&  $POD->isAuthenticated() 
+    && $POD->currentUser()->get('adminUser') && $POD->libOptions('mediabugs_onetime_setup')) { 
 			// all is good, redirect to login??>
 			
 			<P><b>PeoplePods is ready to go!</b></p>
@@ -301,6 +302,8 @@
 	
 			<?	}	
 			
+			} else if (!$POD->libOptions('mediabugs_onetime_setup')) {
+				header("Location: {$POD->siteRoot()}/peoplepods/mediabugsinstall.php");
 			} else {
 			
 				echo '<p>Uncaught Configuration Error!</p>';
