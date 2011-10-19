@@ -16,6 +16,8 @@
 /**********************************************/
 
 $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
+$topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -149,6 +151,13 @@ $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
 							<div class="clearer"></div>
 					</div>	
 				</li>
+				<?php foreach ($topPages as $page): ?>
+					<li>
+						<a href="<?php echo $page->permalink ?>">
+							<?php echo $page->headline ?>
+						</a>
+					</li>
+				<?php endforeach ?>
 			</ul>
 			</div>
 			<div class="column_4_simple last">		
