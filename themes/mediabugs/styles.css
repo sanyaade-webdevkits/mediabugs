@@ -264,7 +264,19 @@
 	
 #footer {  padding-top: 20px; margin-bottom: 40px; border-top:1px dotted #e7e8a9; }
 #footer ul { list-style-type: none; padding:0px; margin:0px;}
-#footer ul li { float: left; display: block; margin-right: 20px; font-weight: bold; } 
+#footer ul li {
+	float: left;
+	display: block;
+	padding-left: 10px;
+	margin-left: 10px;
+	font-weight: bold;
+	border-left: 1px solid #363;
+}
+#footer ul li:first-child {
+	padding-left: 0;
+	margin-left: 0;
+	border: none;
+}
 
 /********************************************************/
 
