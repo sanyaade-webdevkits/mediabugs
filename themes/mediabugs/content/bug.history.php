@@ -12,7 +12,7 @@
 		<img src="<? $POD->templateDir(); ?>/img/status_icons/<?= $POD->tokenize($comment->status); ?>_20.png" />
 	</span>
 	<span class="history_person">
-		<? $comment->author()->permalink(); ?>
+		<b><?php echo $comment->author()->nick ?></b>
 	</span>
 	<div class="clearer"></div>
 </div>
