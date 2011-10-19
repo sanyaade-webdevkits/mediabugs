@@ -79,7 +79,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$errored = true;
 	}
 	
-	echo "\nAbout to activate all the mediabugs pods..."
+	echo "\nAbout to activate all the mediabugs pods...";
 	$pods = array(
 		'bugs_api',
 		'akismet',
