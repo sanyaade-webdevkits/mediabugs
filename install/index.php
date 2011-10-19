@@ -303,7 +303,7 @@
 			<?	}	
 			
 			} else if (!$POD->libOptions('mediabugs_onetime_setup')) {
-				header("Location: {$POD->siteRoot()}/peoplepods/mediabugsinstall.php");
+				header("Location: {$POD->siteRoot(false)}/peoplepods/mediabugsinstall.php");
 			} else {
 			
 				echo '<p>Uncaught Configuration Error!</p>';
