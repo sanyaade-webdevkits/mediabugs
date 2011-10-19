@@ -78,6 +78,51 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		echo "was not created: {$msg->error()}";
 		$errored = true;
 	}
+	
+	echo "\nAbout to activate all the mediabugs pods..."
+	$pods = array(
+		'bugs_api',
+		'akismet',
+		'bugs_authentication_creation',
+		'bugs_authentication_login',
+		'bugs_browse',
+		'bugs_cron',
+		'bugs_dashboard',
+		'bugs_featured',
+		'bugs_features',
+		'bugs_home',
+		'bugs_lists',
+		'bugs_moderation',
+		'bugs_outlets',
+		'bugs_reports',
+		'bugs_send_this',
+		'bugs_spv_admin',
+		'bugs_subscriptions',
+		'bugs_tests',
+		'contenttype_bug_add',
+		'contenttype_bug_browse',
+		'contenttype_bug_bugfeeds',
+		'contenttype_bug_feeds',
+		'contenttype_bug_list',
+		'contenttype_bug_view',
+		'contenttype_document_add',
+		'contenttype_document_list',
+		'contenttype_document_view'
+	);
+	
+	foreach($pods as $p) {
+		echo "\nInstalling $p...";
+		$POD->enablePOD($p);
+	}
+	$POD->saveLibOptions();
+	if (!$POD->success()) {
+		echo "\nthere was an error installing these pods.";
+		$errored = true;
+	} else {
+		echo "\nSUCCESS!\n";
+		$POD->processIncludes();
+		echo $POD->writeHTACCESS(realpath("../"));
+	}
 
 	if ($errored) {
 		echo "\nThere were problems during the install process. Fix your setup and try again";
