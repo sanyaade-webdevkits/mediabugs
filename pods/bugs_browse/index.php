@@ -102,20 +102,6 @@
 	
 	?>
 		<div class="column_4 last">
-			<? if (@$_GET['q'] || $mode=='date') { ?>
-
-				<div class="sidebar">
-					<h3>Subscribe</h3>
-					<p><a href="/bugs/feeds/<?= $mode ?>?q=<?= urlencode(@$_GET['q']); ?>">Subscribe to these results via RSS</a> to receive new bugs in your feed reader.</p>
-					<? if ($POD->isAuthenticated() && @$_GET['q'] && ($mode=='status' || $mode=='date' || $mode=='outlet'||$mode=='type' ||$mode=='search')) { ?>
-					
-						<p><?= $POD->toggleBot($subscribed,'togglesub','Stop receiving updates','E-mail me updates','method=toggleSub&keyword='.urlencode($_GET['q'])."&type=".urlencode($mode)); ?>
-							whenever a bug is added to this list.
-						</p>
-					<? } ?>
-				</div>
-			<? } ?>
-			
 			<? $POD->output('sidebars/recent_bugs'); ?>
 		
 			<? $POD->output('sidebars/browse'); ?>
