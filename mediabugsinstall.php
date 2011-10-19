@@ -76,6 +76,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		echo "created!";
 	} else {
 		echo "was not created: {$msg->error()}";
+		$errored = true;
 	}
 
 	if ($errored) {
