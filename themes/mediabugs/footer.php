@@ -18,28 +18,13 @@
 		<div class="grid">
 			<ul>
 				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/what-is-a-media-bug">What is a MediaBug?</a>
+					<a href="<?php $POD->siteRoot() ?>">Home</a>
 				</li>
 				<li>
-					<a href="http://mediabugs.org/blog">MediaBugs Blog</a>
+					<a href="<?php $POD->siteRoot() ?>/bugs/edit">Report a Bug</a>
 				</li>
 				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/who">Who we are</a>
-				</li>
-				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/contact">Contact Us</a>
-				</li>
-				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/about">About</a>
-				</li>
-				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/faq">FAQ</a>
-				</li>
-				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/help">Help</a>
-				</li>
-				<li>
-					<a href="<? $POD->siteRoot(); ?>/pages/tos">Terms of Service</a>
+					<a href="<?php $POD->siteRoot() ?>/bugs">Browse Bugs</a>
 				</li>
 				<? if ($POD->isAuthenticated() && $POD->currentUser()->adminUser) { ?>
 					<li>
