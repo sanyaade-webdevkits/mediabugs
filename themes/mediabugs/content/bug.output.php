@@ -249,32 +249,22 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 
 <div class="column_4 last" id="post_info">
 
+	<? if ($POD->isAuthenticated() && $POD->currentUser()->id==$doc->author()->id) { ?>
 
 	<div class="sidebar">
 	
 
-		<? if ($POD->isAuthenticated() && $POD->currentUser()->id==$doc->author()->id) { ?>
 			<p><strong>You reported this bug.</strong></p>
-			<p id="metoo_counter"><?= $POD->pluralize($doc->flagCount('metoo'),'@number other person thinks this is a bug','@number other people think this is a bug'); ?></p>
-		<? } else if ($POD->isAuthenticated()) { ?>
-				<?= $POD->toggleBot($doc->hasFlag('metoo',$POD->currentUser()),'metoo','I think this is a bug too!','I think this is a bug too!','method=toggleFlag&flag=metoo&content=' . $doc->id,'metoocounter'); ?>		
-			<p id="metoo_counter"><?= $POD->pluralize($doc->flagCount('metoo'),'@number person thinks this is a bug','@number people think this is a bug'); ?></p>
-		<? }  else { ?>
-			<p>
-				<a href="<? $POD->siteRoot(); ?>/join?redirect=<?= $doc->permalink; ?>" id="metoo">I think this is a bug too!</a>
-			</p>	
-			<p id="metoo_counter"><?= $POD->pluralize($doc->flagCount('metoo'),'@number person thinks this is a bug','@number people think this is a bug'); ?></p>		
-		<? } ?>
-
-		<? if ($doc->isEditable()) { ?>
+		<? }
+		if ($doc->isEditable()) { ?>
 			<p><a href="<? $doc->write('editlink'); ?>" title="Edit this post" class="edit_button">Edit this bug</a></p>
 			<? if ($POD->currentUser()->adminUser) { ?>
 				<p><?= $POD->toggleBot($doc->hasFlag('featured'),'togglefeatured','Stop featuring this bug','Feature this bug','method=toggleFlag&type=global&flag=featured&content='.$doc->id); ?></p>
 			<? } ?>
-		<? } ?>
+
 
 	</div>
-
+	<? } ?>
 	
 	<? $POD->output('sidebars/recent_bugs'); ?>
 	
