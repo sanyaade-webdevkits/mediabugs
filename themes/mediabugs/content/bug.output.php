@@ -197,7 +197,8 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 					} ?>
 					</div>
 	
-					<p id="media_outlet_contacted_no" 	<? if ($doc->get('media_outlet_contacted')!='no') { ?>style="display:none;"<? } ?>><? $doc->author()->permalink(); ?> has not contacted <?= $media_outlet->bugTargetBrowseLink(); ?></p>
+					<p id="media_outlet_contacted_no" 	<? if ($doc->get('media_outlet_contacted')!='no') { ?>style="display:none;"<? } ?>>
+					<b><?php echo $doc->author()->nick ?></b> has not contacted <?= $media_outlet->bugTargetBrowseLink(); ?></p>
 			</div>
 
 			
