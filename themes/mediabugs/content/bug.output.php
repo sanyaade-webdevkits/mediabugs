@@ -142,9 +142,6 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 					<? if ($POD->isAuthenticated()) { ?>
 						<li><?= $POD->toggleBot($POD->currentUser()->isWatched($doc),'togglewatch','Stop tracking','Track','method=toggleWatch&content='.$doc->id,null,null,'Stop tracking this bug on your My Bugs dashboard','Track this bug on your My Bugs dashboard'); ?></li>
 						<li><?= $POD->toggleBot($subscribed,'togglesub','Stop receiving updates','E-mail me updates','method=toggleSub&contentId='.$doc->id); ?></li>
-					<? } else { ?>
-						<li><a id="togglewatch" href="<? $POD->siteRoot(); ?>/join?redirect=<?= $doc->permalink; ?>">Track</a></li>
-						<li><a id="togglesub" href="<? $POD->siteRoot(); ?>/join?redirect=<?= $doc->permalink; ?>">Email me updates</a></li>
 					<? } ?>
 					<li><a id="rsslink" href="<?= $doc->permalink ?>/feed">RSS</a></li>						
 					<li><a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="media_bugs">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
