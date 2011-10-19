@@ -71,7 +71,7 @@ $topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
 			<div class="column_12 last" id="login_status">
 	
 				<? if ($POD->isAuthenticated()) { ?>
-					Welcome, <a href="<? $POD->currentUser()->write('permalink'); ?>" title="View My Profile"><? $POD->currentUser()->write('nick'); ?></a> |
+					Welcome, <b><? $POD->currentUser()->write('nick'); ?></b> |
 					<a href="<? $POD->siteRoot(); ?>/logout" title="Logout">Logout</a>
 				<? } else { ?>
 					<a href="<? $POD->siteRoot(); ?>/login">Login</a> or <a href="<? $POD->siteRoot(); ?>/join">Create an account</a>
