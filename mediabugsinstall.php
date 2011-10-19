@@ -128,16 +128,17 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 
 	echo "\nAbout to create the files directories:";
 	$directories = array(
-		'files/images',
-		'files/docs',
-		'files/cache'
+		'./files',
+		'./files/images',
+		'./files/docs',
+		'./files/cache'
 	);
 	
 	foreach($directories as $dir) {
 		if (file_exists($dir)) {
 			echo "\n$dir already exists.";
 		}
-		else if (mkdir($dir, 0664, true)) {
+		else if (mkdir($dir, 0775, true)) {
 			echo "\n$dir was successfully created.";
 		} else {
 			echo "\nThere was an error trying to create $dir.";
