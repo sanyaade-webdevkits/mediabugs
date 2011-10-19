@@ -85,6 +85,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$POD->setLibOptions('currentTheme','mediabugs');
 		$POD->saveLibOptions(true);
 		echo "\nAll done!";
+		echo "\nYou might want to go to {$POD->siteRoot(false)}/spvadmin to set publication details";
 	}
 	
 }
