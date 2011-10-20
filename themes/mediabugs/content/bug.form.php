@@ -191,16 +191,22 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 									cookie		 : true,
 									xfbml			 : true
 								});
-								FB.api('/me', function(user) {
-									if (user) {
-										$('input[name=meta_who_name]').val(user.name);
-										$('input[name=meta_who_fb_id]').val(user.id);
-										$('.fb-login-button').hide();
-										$('.hide_if_fb_authd').hide();
-										$('#who_are_you').text('You are logged in as ' + user.name + ' via Facebook.');
-									}
-								});
+								var loadFacebookData = function() {
+									FB.api('/me', function(user) {
+										console.log(user);
+										if (user && user.name && user.id) {
+											$('input[name=meta_who_name]').val(user.name);
+											$('input[name=meta_who_fb_id]').val(user.id);
+											$('.fb-login-button').hide();
+											$('.hide_if_fb_authd').hide();
+											$('#who_are_you').text('You are logged in as ' + user.name + ' via Facebook.');
+										}
+									});
+								};
+								loadFacebookData();
 
+								// sometimes FB doesn't get it right the first time.
+								setTimeout(loadFacebookData, 3000);
 							};
 							(function(d){
 								 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
