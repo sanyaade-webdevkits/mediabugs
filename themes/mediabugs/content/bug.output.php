@@ -39,74 +39,21 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 	
 		<?php if ($POD->isAuthenticated() && $POD->currentUser()->adminUser): ?>
 			<div id="change_bug_status" style="display:none;">
-				<? if ($_GET['msg'] == "Bug saved!") { ?>
-
-					<h1><img src="<? $POD->templateDir(); ?>/img/confirmation_hex.png" align="absmiddle" />&nbsp;Thank you for reporting this bug!</h1>
-					
-					<? if ($POD->isAuthenticated()) { ?>
-					
-						<p><input type="checkbox" id="subcheck" <? if ($subscribed) { ?>checked<? } ?> onclick="return toggleBot('subcheck','','','method=toggleSub&contentId='+<?= $doc->id; ?>,subCheckboxSuccess);" /> Send me a message when someone leaves a comment on this bug</p>
-					
-						<? if ($edit_minutes > 0) { ?>
-							<p>You can <a href="<?= $doc->editlink; ?>">edit this bug</a> for the next <?= $POD->pluralize($edit_minutes,'@number minute','@number minutes'); ?>.</p>
-						<? } ?>
-					
-					<? } else { ?>
-					
-						<p>
-							By filing this bug, you've opened up a communication channel with the reporters and media outlets involved.
-						  	We believe it is important that you remain engaged in this discussion.  The best way to do that is to <strong><a href="<? $POD->siteRoot(); ?>/join?claim=<?= $doc->id; ?>">create a MediaBugs account</a></strong>
-						  	so that you can track this bug and make sure it gets closed. 
-						</p>
-					
-						<p>
-							<a href="<? $POD->siteRoot(); ?>/join?claim=<?= $doc->id; ?>" class="littlebutton">Claim this bug</a>		
-						</p>
-						<div class="clearer"></div>
-				
-					
-					<? } ?>
-					<hr />
-				<? } ?>
-
 				<h1>This bug is currently <strong><?= ucwords(preg_replace("/\:/",": ",$doc->bug_status)); ?></strong>.</h1>
 				
 				<div id="status_open" <? if (!preg_match("/open/",$doc->bug_status)) { ?>style="display:none;"<? } ?> >
 				
 					<div id="bug_statuses">
 					<p><input type="radio" name="new_bug_status" id="bug_status_open" value="<?= $doc->bug_status; ?>" <? if (preg_match("/open/",$doc->bug_status)) { ?>checked<? } ?> /> <img src="<? $POD->templateDir(); ?>/img/status_icons/<?= $POD->tokenize($doc->bug_status); ?>_20.png" id="bug_status_open_img" alt="<?= htmlspecialchars($doc->bug_status); ?>" align="absmiddle"  title="<?= htmlspecialchars($doc->bug_status); ?>" width="20" height="20" /> <span id="bug_status_open_label"><?= ucwords(preg_replace("/\:/",": ",$doc->bug_status)); ?></span></p>
-					<? if ($POD->isAuthenticated() && $POD->currentUser()->adminUser) { ?>
 						<p><input type="radio" name="new_bug_status"  value="open"> <img src="<? $POD->templateDir(); ?>/img/status_icons/open_20.png" align="absmiddle"  alt="Open" border="0">&nbsp;Open</p>
 						<p><input type="radio" name="new_bug_status"  value="open:under discussion"> <img src="<? $POD->templateDir(); ?>/img/status_icons/open_under_discussion_20.png" align="absmiddle"  alt="Open: Under Discussion" border="0">&nbsp;Open: Under Discussion</p>
 						<p><input type="radio" name="new_bug_status"  value="open:responded to"> <img src="<? $POD->templateDir(); ?>/img/status_icons/open_responded_to_20.png" align="absmiddle"  alt="Open: Responded To" border="0">&nbsp;Open: Responded To</p>
 						<p><input type="radio" name="new_bug_status"  value="closed:off topic"> <img src="<? $POD->templateDir(); ?>/img/status_icons/closed_off_topic_20.png" align="absmiddle"  alt="Closed: Off Topic" border="0">&nbsp;Closed: Off Topic</p>
 						<p><input type="radio" name="new_bug_status"  value="closed:unresolved"> <img src="<? $POD->templateDir(); ?>/img/status_icons/closed_unresolved_20.png" align="absmiddle"  alt="Closed: Unresolved" border="0">&nbsp;Closed: Unresolved</p>
-					<? } ?>
 					<p><input type="radio" name="new_bug_status" value="closed:corrected" /> <img src="<? $POD->templateDir(); ?>/img/status_icons/closed_corrected_20.png" align="absmiddle"  alt="Closed: Corrected" border="0">&nbsp;Closed: Corrected</p>
 					<p><input type="radio" name="new_bug_status" value="closed:withdrawn" /> <img src="<? $POD->templateDir(); ?>/img/status_icons/closed_withdrawn_20.png" align="absmiddle"  alt="Closed: Withdrawn" border="0">&nbsp;Closed: Withdrawn</p>
 					<p><a href="/pages/status-explanation" target="_new">What do these mean?</a></p>	
-
-					<? if ($POD->isAuthenticated() && $POD->currentUser()->adminUser) { ?>
-						<p><input type="checkbox" id="sendSurveyEmail" name="sendSurveyEmail" checked /> Send survey reminder email to <? $doc->author()->write('nick'); ?> if I close this bug?</p>
-					<? } ?>
 					
-					</div>
-					<div id="outlet_contacted">
-					<p class="input">
-						<label for="">Have you contacted this media outlet?</label>
-						<input type="radio" name="meta_media_outlet_contacted" value="yes" id="contacted_yes" onchange="return chcontact();" <? if ($doc->media_outlet_contacted=="yes") {?>checked<? } ?>> Yes
-						<input type="radio" name="meta_media_outlet_contacted" value="no" id="contacted_no" onchange="return chcontact();"<? if ($doc->media_outlet_contacted=="no" || !$doc->saved() ||  $doc->media_outlet_contacted=='') {?>checked<? } ?>> No
-					</p>
-					<p class="input" id="media_outlet_responded" <? if (!$doc->saved() || $doc->media_outlet_contacted=='no' || $doc->media_outlet_contacted=='') { ?>style="display:none;"<? }?>>
-						<label for="">Has this media outlet responded?</label>
-						<input type="radio" name="meta_media_outlet_responded" value="yes" id="responded_yes" onchange="return chresponded();" <? if ($doc->media_outlet_responded=="yes") {?>checked<? } ?>> Yes
-						<input type="radio" name="meta_media_outlet_responded" value="no" id="responded_no" onchange="return chresponded();"<? if ($doc->media_outlet_responded=="no" || $doc->media_outlet_responded=='' || !$doc->saved()) {?>checked<? } ?>> No
-					</p>
-					
-					<p class="input" id="media_response" <? if (!$doc->saved() || $doc->media_outlet_response=='') { ?>style="display:none;"<? }?>>
-						<label for="">What was the media outlet's response?</label>
-						<textarea id="meta_media_outlet_response" name="meta_media_outlet_response" class="text tinymce"><? $doc->htmlspecialwrite('media_outlet_response'); ?></textarea>
-					</p>
 					</div>
 				</div>
 				<div id="status_closed"  <? if (preg_match("/open/",$doc->bug_status)) { ?>style="display:none;"<? } ?> >
@@ -122,11 +69,6 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 
 		<?php endif ?>
 			<div id="bug_info">
-				<? if ($POD->isAuthenticated() && ($POD->currentUser()->id == $doc->userId)) { ?>
-					<div id="bug_owner_message">
-						You created this bug. <a href="#" onclick="return showStatusChange();" id="bug_status_link" title="You can update the bug status at any time by clicking here.">Update it when its status changes, or if you contact the publication.</a>
-					</div>
-				<? } ?>
 				<? if ($POD->isAuthenticated() && ($POD->currentUser()->adminUser) && ($POD->currentUser()->id != $doc->userId)) { ?>
 					<div id="bug_owner_message">
 						As an admin, <a href="#" onclick="return showStatusChange();" id="bug_status_link" title="You can update the bug status at any time by clicking here.">you may edit this bug's status.</a>
