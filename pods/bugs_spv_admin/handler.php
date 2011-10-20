@@ -40,6 +40,11 @@ if (!empty($_POST)) {
 	if (isset($_POST['publication_url'])) {
 		$admin_record->publication_url = $_POST['publication_url'];
 	}
+
+	if (isset($_POST['fb_app_id'])) {
+		$admin_record->fb_app_id = $_POST['fb_app_id'];
+	}
+
 	$admin_record->save();
 
 }
