@@ -23,7 +23,10 @@ if ($POD->isAuthenticated()) {
 $minutes = 15;
 $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 
-
+$author_name = $doc->author()->nick;
+if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
+	$author_name = $doc->who_name;
+}
 
 ?>
 <div class="column_8">
@@ -80,7 +83,7 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 					<img src="<? $POD->templateDir(); ?>/img/status_icons/<?= $POD->tokenize($doc->bug_status); ?>_50.png" alt="<?= htmlspecialchars($doc->bug_status); ?>" title="<?= htmlspecialchars($doc->bug_status); ?>" width="50" height="50" id="bug_status_icon" />
 				</div>
 				<h1><?= $doc->bugHeadline(); ?></h1>
-				<span class="byline">Reported by <b><?php echo $doc->author()->nick ?></b> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
+				<span class="byline">Reported by <b><?php echo $author_name ?></b> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
 				<ul id="bug_actions">
 					<? if ($POD->isAuthenticated()) { ?>
 						<li><?= $POD->toggleBot($POD->currentUser()->isWatched($doc),'togglewatch','Stop tracking','Track','method=toggleWatch&content='.$doc->id,null,null,'Stop tracking this bug on your My Bugs dashboard','Track this bug on your My Bugs dashboard'); ?></li>
