@@ -37,7 +37,7 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 	<? } ?>
 	<div id="bug_output">
 	
-
+		<?php if ($POD->isAuthenticated() && $POD->currentUser()->adminUser): ?>
 			<div id="change_bug_status" style="display:none;">
 				<? if ($_GET['msg'] == "Bug saved!") { ?>
 
@@ -120,6 +120,7 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 			
 			</div>
 
+		<?php endif ?>
 			<div id="bug_info">
 				<? if ($POD->isAuthenticated() && ($POD->currentUser()->id == $doc->userId)) { ?>
 					<div id="bug_owner_message">
