@@ -25,7 +25,12 @@ if ($admin_records->count() == 0) {
 if (!empty($_POST)) {
 	if (!empty($_FILES)) {
 		$admin_record->addFile('publication_img', $_FILES['publication_img']);
-		$admin_record->files()->fill();
+		
+		if (!$admin_record->success()) {
+			$POD->error_msg = $admin_record->error();
+		} else {
+			$admin_record->files()->fill();
+		}
 	}
 
 	if (isset($_POST['publication_name'])) {

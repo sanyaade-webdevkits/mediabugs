@@ -7,6 +7,9 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 
 
 ?>
+<?php if ($POD->error_msg): ?>
+	<p class='error_message'><?php echo $POD->error_msg ?></p>
+<?php endif ?>
 <div class='grid'>
 	<div class='column_5'>
 		<form action='<?php $POD->siteRoot()?>/spvadmin' method='POST'
