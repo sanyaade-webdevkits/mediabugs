@@ -38,6 +38,8 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 	$instructions_survey_thanks = $POD->getContent(array('stub'=>'instructions-survey-thanks'));
 	
 	$outlet = $POD->getContents(array('type'=>'admin_record'))->getNext()->publication_name;
+	
+	$fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app_id;
 
 
 ?>
@@ -71,6 +73,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 </ul>
 <div id="bug_form">
 	<form action="<? $doc->write('editpath'); ?>" method="post" id="bug" enctype="multipart/form-data" onsubmit="return submitBug();">
+		<input type='hidden' name='meta_who_fb_id'>
 		<? if ($doc->get('id')) { ?>
 			<input type="hidden" name="id" id="bug_id" value="<? $doc->write('id'); ?>" />
 			<input type="hidden" name="redirect" value="<? $doc->write('permalink'); ?>" />
@@ -175,15 +178,46 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 					</p>
 	
 					<p class='input'>
-						<label>Who are you? [optional]</label>
+						<label id='who_are_you'>Who are you? [optional]</label>
 					</p>
-	
-					<p class='input'>
+					<?php if ($fb_app_id && !$POD->isAuthenticated()): ?>
+						<div id="fb-root"></div>
+					
+						<script>
+							window.fbAsyncInit = function() {
+								FB.init({
+									appId			 : '<?php echo $fb_app_id ?>',
+									status		 : true, 
+									cookie		 : true,
+									xfbml			 : true
+								});
+								FB.api('/me', function(user) {
+									if (user) {
+										$('input[name=meta_who_name]').val(user.name);
+										$('input[name=meta_who_fb_id]').val(user.id);
+										$('.fb-login-button').hide();
+										$('.hide_if_fb_authd').hide();
+										$('#who_are_you').text('You are logged in as ' + user.name + ' via Facebook.');
+									}
+								});
+
+							};
+							(function(d){
+								 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+								 js = d.createElement('script'); js.id = id; js.async = true;
+								 js.src = "//connect.facebook.net/en_US/all.js";
+								 d.getElementsByTagName('head')[0].appendChild(js);
+							 }(document));
+						</script>
+						<div class="fb-login-button">Login with Facebook</div>
+					<?php endif ?>
+					
+					<p class='input hide_if_fb_authd'>
 						<label for='meta_who_name'>Name</label>
 						<input name='meta_who_name' type='text' class='text'>
 					</p>
 
-					<p class='input'>
+					<p class='input hide_if_fb_authd'>
 						<label for='meta_who_email'>Email</label>
 						<input name='meta_who_email' type='text' class='text'>
 					</p>

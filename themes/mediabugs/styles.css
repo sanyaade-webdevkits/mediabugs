@@ -554,6 +554,10 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 	clear: both;
 }
 
+#bug_form .fb-login-button {
+	margin-left: 100px;
+}
+
 #spv_form {
 	width: 678px;
 	margin-left: auto;
