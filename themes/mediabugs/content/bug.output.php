@@ -69,7 +69,7 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 
 		<?php endif ?>
 			<div id="bug_info">
-				<? if ($POD->isAuthenticated() && ($POD->currentUser()->adminUser) && ($POD->currentUser()->id != $doc->userId)) { ?>
+				<? if ($POD->isAuthenticated() && $POD->currentUser()->adminUser) { ?>
 					<div id="bug_owner_message">
 						As an admin, <a href="#" onclick="return showStatusChange();" id="bug_status_link" title="You can update the bug status at any time by clicking here.">you may edit this bug's status.</a>
 					</div>
