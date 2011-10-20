@@ -6,6 +6,8 @@
 		?>
 			<div class="column_8">
 		
+			<h3><a href='<?php $POD->siteRoot() ?>/spvadmin'>Publication Settings</a></h3>
+			
 			<h3><A href="<? $POD->siteRoot(); ?>/peoplepods/admin">PeoplePods Command Center</a></h3>
 	
 
