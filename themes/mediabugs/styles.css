@@ -544,6 +544,17 @@ ul#alpha_index li { display: inline; font-weight: bold; }
 p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:block;}
 .bottom_20 { height:20px;}
 
+#header_logo img {
+	float: right;
+	display: block;
+}
+#header_logo a {
+	float: right;
+	display: block;
+	clear: both;
+}
+
+
 #spv_admin .input label {
 	font-size: 20px;
 	margin-bottom: 10px;

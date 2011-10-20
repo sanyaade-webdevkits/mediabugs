@@ -18,6 +18,12 @@
 $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
 $topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
 
+if ($logo = $adminRecord->files()->contains('publication_img')) {
+	// we have a logo.
+} else {
+	$logo = false;
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -92,7 +98,10 @@ $topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
 				&& !empty($adminRecord->publication_name)
 				&& !empty($adminRecord->publication_url)):
 			?>
-				<div class="column_7 last right_align">
+				<div id='header_logo' class="column_7 last right_align">
+					<?php if ($logo): ?>
+						<img src='<?php echo $logo->src(100) ?>'>
+					<?php endif?>
 					<a href='<?php echo $adminRecord->publication_url ?>'>
 						Back to <?php echo $adminRecord->publication_name ?>
 					</a>
