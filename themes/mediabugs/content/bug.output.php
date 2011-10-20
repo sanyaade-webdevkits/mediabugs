@@ -188,7 +188,7 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 				<h2>Response</h2>
 			
 					<p id="media_outlet_contacted_yes" 	<? if ($doc->get('media_outlet_contacted')!='yes') { ?>style="display:none;"<? } ?>>
-						<? $doc->author()->permalink(); ?> has contacted <?= $media_outlet->bugTargetBrowseLink(); ?>
+						<b><?php echo $doc->author()->nick ?></b> has contacted <?= $media_outlet->bugTargetBrowseLink(); ?>
 						<span id="did_media_outlet_respond" <? if (!$doc->media_outlet_response) {?>style="display:none;"<? } ?>>and received the following response.</span>
 					</p>
 					<div id="media_outlet_response">

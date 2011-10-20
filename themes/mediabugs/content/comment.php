@@ -20,7 +20,7 @@
 			<? if ($comment->POD->isAuthenticated() && ($comment->parent('userId') == $comment->POD->currentUser()->get('id') || $comment->get('userId') == $comment->POD->currentUser()->get('id'))) { ?>
 				<span class="gray remove_comment"><a href="#" onclick="return removeComment(<? $comment->write('id'); ?>);">Remove Comment</a></span>
 			<? } ?>
-			<? $comment->author()->permalink(); ?> said:
+			<?php echo $comment->author()->nick ?> said:
 		</span>
 		<div>
 		<? $comment->writeFormatted('comment') ?>
