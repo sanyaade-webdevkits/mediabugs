@@ -11,12 +11,7 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 	<p class='error_message'><?php echo $POD->error_msg ?></p>
 <?php endif ?>
 <div class='grid'>
-	<ul id='bug_tabs'>
-		<li class='active'>&nbsp;</li>
-		<div class='clearer'></div>
-	</ul>
-	
-	<div id='bug_form'>
+	<div id='spv_form'>
 		<form id='spv_admin' action='<?php $POD->siteRoot()?>/spvadmin' 
 				method='POST' enctype='multipart/form-data'>
 			<p class='input'>

@@ -554,6 +554,20 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 	clear: both;
 }
 
+#spv_form {
+	width: 678px;
+	margin-left: auto;
+	margin-right: auto;
+	background: #e9f4da;
+	border: 1px solid #336633;
+	padding: 30px 0;
+}
+
+#spv_form p.input {
+	width: 460px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 #spv_admin .input label {
 	font-size: 13px;
