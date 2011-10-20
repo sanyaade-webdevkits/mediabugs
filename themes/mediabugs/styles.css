@@ -368,7 +368,7 @@ a#metoo.active { cursor: pointer;  display: block; float: left; font-family: hel
 #bug_body h2 { margin-bottom: 5px; } 
 #bug_body p,#bug_body li { font-family: "Helvetica", san serif; font-size: 14px; line-height: 150%; }
 
-#bug_form { width: 680px; margin-left: auto; margin-right: auto; background: #e9f4da;  border: 1px solid #336633; border-top:0px; padding-bottom:30px;}
+#bug_form { width: 678px; margin-left: auto; margin-right: auto; background: #e9f4da;  border: 1px solid #336633; border-top:0px; padding-bottom:30px;}
 #bug_form p.input { width: 460px; margin-left: auto; margin-right: auto; }
 #bug_form p.radio { width: 460px; margin-left: auto; margin-right: auto; }
 
