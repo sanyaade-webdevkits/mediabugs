@@ -40,3 +40,15 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 		</form>
 	</div>
 </div>
+
+<script type='text/javascript'>
+$(function() {
+	$('#spv_admin').validate({
+		rules: {
+			publication_url: {
+				url: true
+			}
+		}
+	})
+});
+</script>
