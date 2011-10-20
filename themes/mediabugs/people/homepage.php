@@ -95,8 +95,6 @@
 	<div class="column_4 last">
 		<br />
 
-		<? $POD->output('sidebars/spread'); ?>
-			
 		<? $POD->output('sidebars/recent_bugs'); ?>
 		
 		<? $POD->output('sidebars/browse'); ?>
