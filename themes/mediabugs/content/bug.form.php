@@ -174,6 +174,20 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 						</script>
 					</p>
 	
+					<p class='input'>
+						<label>Who are you? [optional]</label>
+					</p>
+	
+					<p class='input'>
+						<label for='meta_who_name'>Name</label>
+						<input name='meta_who_name' type='text' class='text'>
+					</p>
+
+					<p class='input'>
+						<label for='meta_who_email'>Email</label>
+						<input name='meta_who_email' type='text' class='text'>
+					</p>
+
 					<p class="input nextbutton"><a href="#why" class="littlebutton" onclick="return nextSection('what','why');">Continue</a> <span>to attach files or other supporting evidence.</span></p>
 					<div class="clearer bottom_20"></div>
 					<p class="input nextbutton">.<input type="submit" class="button" value="Save Bug" /> <span>if you're done.</span></p>
