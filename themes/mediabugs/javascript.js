@@ -598,15 +598,13 @@
 
 		function changeBugStatus(bugId) {
 		
-			tinyMCE.triggerSave();
-
 			var new_status = $('input:radio[name=new_bug_status]:checked').val();
 			var media_outlet_contacted = $('input:radio[name=meta_media_outlet_contacted]:checked').val();
 			var media_outlet_response = $('#meta_media_outlet_response').val();
 			var media_outlet_responded = $('input:radio[name=meta_media_outlet_responded]:checked').val();
 			var send_survey = $('#sendSurveyEmail').is(':checked');
 			$.getJSON(
-				'/api?method=updateBugStatus&bug=' + encodeURIComponent(bugId) + "&bug_status="+encodeURIComponent(new_status)+"&response="+encodeURIComponent(media_outlet_response)+"&contacted="+encodeURIComponent(media_outlet_contacted) + "&responded="+encodeURIComponent(media_outlet_responded)+"&survey="+encodeURIComponent(send_survey),
+				'/api?method=updateBugStatus&bug=' + encodeURIComponent(bugId) + "&bug_status="+encodeURIComponent(new_status)+"&survey="+encodeURIComponent(send_survey),
 				function(json) { 
 					if (json.status=='OK') {
 						if (json.open) {
@@ -630,21 +628,6 @@
 							}
 						}
 						$('#bug_status_icon').attr('src',json.icon_50);
-						if (json.media_outlet_contacted=='yes') { 
-							$('#media_outlet_contacted_yes').show();
-							$('#media_outlet_contacted_no').hide();
-
-						} else {
-							$('#media_outlet_contacted_yes').hide();
-							$('#media_outlet_contacted_no').show();
-
-						}
-						if (json.media_outlet_response) { 
-							$('#did_media_outlet_respond').show();
-							$('#media_outlet_response').html(json.media_outlet_response);
-						} else {	
-							$('#did_media_outlet_respond').hide();
-						}
 					} else {
 						alert(json.error);
 					}	
