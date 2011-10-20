@@ -12,8 +12,8 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 <?php endif ?>
 <div class='grid'>
 	<div class='column_5'>
-		<form action='<?php $POD->siteRoot()?>/spvadmin' method='POST'
-				enctype='multipart/form-data'>
+		<form id='spv_admin' action='<?php $POD->siteRoot()?>/spvadmin' 
+				method='POST' enctype='multipart/form-data'>
 			<p class='input'>
 				<label for='publication_name'>Publication Name</label>
 				<input name="publication_name" type='text' 
@@ -31,7 +31,7 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 				<?php else: ?>
 					<span>(no logo has been uploaded yet)</span>
 				<?php endif ?>
-				<input type='file' name='publication_img'>
+				<input id='publication_img' type='file' name='publication_img'>
 			</p>
 			
 			<p class='input'>

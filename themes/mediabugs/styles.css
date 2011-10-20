@@ -543,3 +543,17 @@ ul#alpha_index li { display: inline; font-weight: bold; }
 
 p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:block;}
 .bottom_20 { height:20px;}
+
+#spv_admin .input label {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+#spv_admin .input input[type=text] {
+	border: 1px solid #eee;
+	font-size: 20px;
+}
+
+#spv_admin .input #publication_img {
+	display: block;
+}
