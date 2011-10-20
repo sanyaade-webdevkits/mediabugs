@@ -80,7 +80,7 @@ if ($logo = $adminRecord->files()->contains('publication_img')) {
 					Welcome, <b><? $POD->currentUser()->write('nick'); ?></b> |
 					<a href="<? $POD->siteRoot(); ?>/logout" title="Logout">Logout</a>
 				<? } else { ?>
-					<a href="<? $POD->siteRoot(); ?>/login">Login</a> or <a href="<? $POD->siteRoot(); ?>/join">Create an account</a>
+					<a href="<? $POD->siteRoot(); ?>/login">Login</a>
 				<? } ?>
 			</div>
 			<div class="clearer"></div>
