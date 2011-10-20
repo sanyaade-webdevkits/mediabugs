@@ -33,10 +33,6 @@
 				</div>
 			<? } ?>
 
-			<? if (!$user->get('openid')  && !$user->get('fbuid')) { ?>
-			<p>Login with <a href="<? $POD->siteRoot(); ?>/openid">OpenID</a> or <a href="<? $POD->siteRoot(); ?>/facebook">Facebook</a></p>
-			<? } ?>
-
 			<? if (isset($_COOKIE['claim'])) { 
 				$bug = $POD->getContent(array('id'=>$_COOKIE['claim']));
 				if ($bug->success()) { ?>
