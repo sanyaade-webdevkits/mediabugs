@@ -32,7 +32,10 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 			<p class='input'>
 				<label for='publication_img'>Publication Image</label>
 				<?php if ($logo): ?>
-					<img src='<?php echo $logo->src(100) ?>'>
+					<a href="#" class="with_right_float" 
+					onclick="return removeFile(<? $logo->write('contentId'); ?>,<? $logo->write('id'); ?>);">
+					<img src="<? $POD->templateDir(); ?>/img/cancel.png" border="0" /></a>
+					<img id='the_img' src='<?php echo $logo->src(100) ?>'>
 				<?php else: ?>
 					<span>(no logo has been uploaded yet)</span>
 				<?php endif ?>
@@ -47,6 +50,12 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 </div>
 
 <script type='text/javascript'>
+// override the refreshFiles function in javascript.js, only in this template.
+var refreshFiles = function() {
+	$('#the_img, .input .with_right_float').remove();
+	
+};
+
 $(function() {
 	$('#spv_admin').validate({
 		rules: {
