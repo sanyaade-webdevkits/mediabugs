@@ -11,7 +11,12 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 	<p class='error_message'><?php echo $POD->error_msg ?></p>
 <?php endif ?>
 <div class='grid'>
-	<div class='column_5'>
+	<ul id='bug_tabs'>
+		<li class='active'>&nbsp;</li>
+		<div class='clearer'></div>
+	</ul>
+	
+	<div id='bug_form'>
 		<form id='spv_admin' action='<?php $POD->siteRoot()?>/spvadmin' 
 				method='POST' enctype='multipart/form-data'>
 			<p class='input'>
@@ -34,8 +39,8 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 				<input id='publication_img' type='file' name='publication_img'>
 			</p>
 			
-			<p class='input'>
-				<input type='submit' value='Update Publication'>
+			<p class='input' id='save_button'>
+				<input class='button' type='submit' value='Update Publication'>
 			</p>
 		</form>
 	</div>
