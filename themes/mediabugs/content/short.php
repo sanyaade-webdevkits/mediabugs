@@ -12,6 +12,11 @@
 * http://peoplepods.net/readme/themes
 /**********************************************/
 
+$author_name = $doc->author()->nick;
+if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
+	$author_name = $doc->who_name;
+}
+
 ?>	<div class="bug_short <? if ($doc->get('isOddItem')) {?>content_odd<? } ?> <? if ($doc->get('isEvenItem')) {?>content_even<? } ?> <? if ($doc->get('isLastItem')) {?>content_last<? } ?> <? if ($doc->get('isFirstItem')) {?>content_first<? } ?>" id="document_<? $doc->write('id'); ?>">	
 		<div class="bug_status">
 			Bug #<?= $doc->id; ?>
@@ -19,7 +24,7 @@
 		</div>
 
 		<a href="<?= $doc->permalink; ?>" class="bug_title" title="View this bug report"><?= $doc->bugHeadline(); ?></a>
-		<span class="byline">Reported by <b><?php echo $doc->author()->nick ?></b> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
+		<span class="byline">Reported by <b><?php echo $author_name ?></b> on <strong><?= date('M j, Y',strtotime($doc->date)); ?></strong></span>
 		<p><?= $doc->bugSummary(); ?></p>
 		<div class="clearer"></div>
 	</div>
