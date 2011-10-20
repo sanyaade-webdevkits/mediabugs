@@ -11,12 +11,8 @@
 * Documentation for this pod can be found here:
 * http://peoplepods.net/readme/themes
 /**********************************************/
-	$media_outlet = $POD->getContent(array('id'=>$doc->bug_target));
 
 ?>	<div class="bug_short <? if ($doc->get('isOddItem')) {?>content_odd<? } ?> <? if ($doc->get('isEvenItem')) {?>content_even<? } ?> <? if ($doc->get('isLastItem')) {?>content_last<? } ?> <? if ($doc->get('isFirstItem')) {?>content_first<? } ?>" id="document_<? $doc->write('id'); ?>">	
-		<? if ($img = $media_outlet->files()->contains('file_name','img')) { ?>
-			<p style="margin-bottom:10px;"><a href="<?= $POD->siteRoot(false)  . '/bugs/browse/outlet?q='. $media_outlet->id; ?>"><img src="<?= $img->src(200); ?>" alt="<? $media_outlet->htmlspecialwrite('headline'); ?>" border="0" /></a></p>
-		<? } ?>
 
 		<div class="bug_status">
 			Bug #<?= $doc->id; ?>

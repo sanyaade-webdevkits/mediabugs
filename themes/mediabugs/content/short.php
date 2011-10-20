@@ -11,7 +11,6 @@
 * Documentation for this pod can be found here:
 * http://peoplepods.net/readme/themes
 /**********************************************/
-	$media_outlet = $POD->getContent(array('id'=>$doc->bug_target));
 
 ?>	<div class="bug_short <? if ($doc->get('isOddItem')) {?>content_odd<? } ?> <? if ($doc->get('isEvenItem')) {?>content_even<? } ?> <? if ($doc->get('isLastItem')) {?>content_last<? } ?> <? if ($doc->get('isFirstItem')) {?>content_first<? } ?>" id="document_<? $doc->write('id'); ?>">	
 		<div class="bug_status">
