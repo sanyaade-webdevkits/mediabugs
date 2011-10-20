@@ -148,6 +148,9 @@ $edit_minutes = intval(((strtotime($doc->date) + ($minutes*60)) - time())/60);
 					<? if ($POD->isAuthenticated()) { ?>
 						<li><a id="sendlink" href="<? $POD->siteRoot(); ?>/send?id=<?= $doc->id; ?>">Send</a></li>
 					<? } ?>
+					<?php if ($POD->currentUser()->adminUser): ?>
+						<li><a href="<? $doc->write('editlink'); ?>">Edit</a></li>
+					<?php endif ?>
 				</ul>
 				<div class="clearer"></div>
 			</div>
