@@ -83,7 +83,8 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	echo "\nAbout to disable irrelevant pods";
 	$irrelevant_pods = array(
-		'core_profiles'
+		'core_profiles',
+		'core_authentication_creation'
 	);
 	
 	foreach ($irrelevant_pods as $p) {
@@ -91,11 +92,10 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$POD->disablePOD($p);
 	}
 	
-	echo "\nAbout to activate all the mediabugs pods...";
+	echo "\nAbout to activate all the mediabugs pods... (except account creation)";
 	$pods = array(
 		'bugs_api',
 		'akismet',
-		'bugs_authentication_creation',
 		'bugs_authentication_login',
 		'bugs_browse',
 		'bugs_cron',
