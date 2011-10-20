@@ -46,9 +46,6 @@
 				<label for="loginbutton">&nbsp;</label>
 				<input type="submit"  id="loginbutton" value="Login" name="login" />
 			</p>
-			<? if ($POD->libOptions('enable_core_authentication_creation')) { ?>
-			<p class="right_align gray">Need an account? <a href="<? $POD->siteRoot(); ?>/join">Join this site!</a></p>
-			<? } ?>
 			<p class="right_align gray"><a href="<? $POD->siteRoot(); ?>/password_reset">Forgot your password?</a></p>
 			
 

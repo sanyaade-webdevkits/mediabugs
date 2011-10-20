@@ -49,7 +49,6 @@
 			<p class="input">
 				<input type="submit" class="button" value="Login" name="login" />
 			</p>
-			<p class="right_align">Need an account? <a href="<? $POD->siteRoot(); ?>/join">Join this site!</a></p>
 			<p class="right_align"><a href="<? $POD->siteRoot(); ?>/password_reset">Forgot your password?</a></p>
 			
 

@@ -32,8 +32,5 @@
 				<input type="checkbox" id="remember_me" name="remember_me" value="true" checked />
 				<input type="submit"  value="Login" name="login" />
 			</p>
-			
-			<p>Need an account? <a href="<? $POD->siteRoot(); ?>/join">Join this site!</a></p>
-
 		</form>
 	</div>
