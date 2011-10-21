@@ -558,6 +558,14 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 	margin-left: 100px;
 }
 
+#bug_form #captcha {
+	width: 285px;
+}
+
+#bug_form .realperson-challenge {
+	float: right;
+}
+
 #spv_form {
 	width: 678px;
 	margin-left: auto;

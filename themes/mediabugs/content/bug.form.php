@@ -231,6 +231,11 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 						<input name='meta_who_email' type='text' class='text'>
 					</p>
 
+					<p class='input hide_if_fb_authd'>
+						<label for='captcha'>Captcha <span class="required">*</span></label>
+						<input id='captcha' name='captcha' type='text' class='text'>
+					</p>
+
 					<p class="input nextbutton"><a href="#why" class="littlebutton" onclick="return nextSection('what','why');">Continue</a> <span>to attach files or other supporting evidence.</span></p>
 					<div class="clearer bottom_20"></div>
 					<p class="input nextbutton">.<input type="submit" class="button" value="Save Bug" /> <span>if you're done.</span></p>
@@ -367,19 +372,20 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 
 <script>
 
-	$().ready(function() { 
-	
-			$('#media_outlet_q').autocomplete('/api',{
-					autoFill: false,
-					selectFirst: false,
-					mustMatch: false,
-					extraParams: { method: 'bugtargetautocomplete' }
-				}
-			).result(function(event,data,formatted) { 
-				mo_newcheck();
-			})
-	
-		}
-	);
+	$().ready(function() { 	
+		$('#media_outlet_q').autocomplete('/api',{
+			autoFill: false,
+			selectFirst: false,
+			mustMatch: false,
+			extraParams: { method: 'bugtargetautocomplete' }
+		}).result(function(event,data,formatted) { 
+			mo_newcheck();
+		});
+
+		$('#captcha').realperson({
+			length: 6
+		});
+
+	});
 
 </script>
