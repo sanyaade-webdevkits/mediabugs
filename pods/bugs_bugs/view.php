@@ -125,6 +125,10 @@ function leftShift32($number, $steps) {
 				$comment->comment_who_email = $_POST['comment_who_email'];
 			}
 
+			if ($_POST['meta_who_fb_id']) {
+				$comment->meta_who_fb_id = $_POST['meta_who_fb_id'];
+			}
+
 			if ($_POST['journalist']) {
 				$comment->journalist = true;
 			} else if ($_POST['participant']) { 
