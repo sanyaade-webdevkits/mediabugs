@@ -161,23 +161,47 @@ if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
 		?>
 		<!-- END COMMENTS -->
 	</div>	
-	<? if ($this->POD->isAuthenticated()) { ?>
-		<div id="comment_form" <?  if (preg_match("/closed/",$doc->bug_status)) {?>style="display:none;"<? } ?>>
-			<a name="reply"></a>
-				<h3>Leave a comment</h3>
-				<form method="post" id="add_comment" class="valid">
-					<p style="margin:0px;" class="right_align">You are logged in as <b><?php echo $POD->currentUser()->nick ?></b>.  <a href="<? $POD->siteRoot(); ?>/logout">Logout</a></p>
-					<p class="input"><textarea name="comment" class="text required" id="comment"></textarea></p>
-					<div id="comment_extras">
-						<p>Are you a direct participant in this story?</P>
-						<p><input type="checkbox" name="journalist" id="journalist"> <label for="journalist">I am the journalist responsible.</label></p>
-						<p><input type="checkbox" name="participant" id="participant"> <label for="participant">I am mentioned in this report or was interviewed for it.</label></p>
-					</div>
-					<p><input type="submit" value="Post Comment" class="button" /></p>
-				</form>
-			<div class="clearer"></div>		
-		</div>
-	<? } ?>	
+	<div id="comment_form" <?  if (preg_match("/closed/",$doc->bug_status)) {?>style="display:none;"<? } ?>>
+		<a name="reply"></a>
+			<h3>Leave a comment</h3>
+			<form method="post" id="add_comment" class="valid">
+				<p style="margin:0px;" class="right_align">
+					<?php if ($POD->isAuthenticated()): ?>
+						You are logged in as <b><?php echo $POD->currentUser()->nick ?></b>.  
+						<a href="<? $POD->siteRoot(); ?>/logout">Logout</a>
+					<?php endif ?>
+				</p>
+				
+				<p class="input"><textarea name="comment" class="text required" id="comment"></textarea></p>
+
+				<?php if (!$POD->currentUser()->adminUser): ?>
+					<p class='input'>
+						<label id='who_are_you'>Who are you?</label>
+					</p>
+
+					<p class='input hide_if_fb_authd'>
+						<label for='comment_who_name'>Your Name</label>
+						<input name='comment_who_name' type='text'>
+					</p>
+					<p class='input hide_if_fb_authd'>
+						<label for='comment_who_email'>Your Email</label>
+						<input name='comment_who_email' type='text'>
+					</p>
+					<p class='input hide_if_fb_authd'>
+						<label for='captcha'>Captcha <span class="required">*</span></label>
+						<input id='captcha' name='captcha' type='text'>
+					</p>
+				<?php endif ?>
+
+				<div id="comment_extras">
+					<p>Are you a direct participant in this story?</P>
+					<p><input type="checkbox" name="journalist" id="journalist"> <label for="journalist">I am the journalist responsible.</label></p>
+					<p><input type="checkbox" name="participant" id="participant"> <label for="participant">I am mentioned in this report or was interviewed for it.</label></p>
+				</div>
+				<p><input type="submit" value="Post Comment" class="button" /></p>
+			</form>
+		<div class="clearer"></div>		
+	</div>
 </div>
 
 <div class="column_4 last" id="post_info">
@@ -187,3 +211,13 @@ if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
 	<? $POD->output('sidebars/browse'); ?>
 	
 </div>
+
+<script>
+
+	$().ready(function() { 	
+		$('#captcha').realperson({
+			length: 6
+		});
+	});
+
+</script>

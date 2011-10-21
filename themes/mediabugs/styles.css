@@ -592,8 +592,26 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 }
 
 #spv_admin .input #publication_img {
-	display: block;
+	display: inline-block;
 }
 #spv_admin .button {
 	float: none;
+}
+
+#add_comment .input {
+	width: 400px;
+}
+
+#add_comment .input #captcha {
+	width: 210px;
+}
+
+#add_comment .input input[type='text'] {
+	border: 1px solid #ddd;
+	font-size: 24px;
+}
+
+
+#add_comment .hide_if_fb_authd .realperson-challenge {
+	float: right;
 }

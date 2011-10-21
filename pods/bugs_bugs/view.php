@@ -11,16 +11,37 @@
 * Documentation for this pod can be found here:
 * http://peoplepods.net/readme/new-content-type
 /**********************************************/
+function rpHash($value) { 
+	$hash = 5381; 
+	$value = strtoupper($value); 
+	for($i = 0; $i < strlen($value); $i++) { 
+		$hash = (leftShift32($hash, 5) + $hash) + ord(substr($value, $i)); 
+	} 
+	return $hash; 
+}
+// Perform a 32bit left shift 
+function leftShift32($number, $steps) { 
+	// convert to binary (string) 
+	$binary = decbin($number); 
+	// left-pad with 0's if necessary 
+	$binary = str_pad($binary, 32, "0", STR_PAD_LEFT); 
+	// left shift manually 
+	$binary = $binary.str_repeat("0", $steps); 
+	// get the last 32 bits 
+	$binary = substr($binary, strlen($binary) - 32); 
+	// if it's a positive number return it 
+	// otherwise return the 2's complement 
+	return ($binary{0} == "0" ? bindec($binary) : 
+			-(pow(2, 31) - bindec(substr($binary, 1)))); 
+} 
+
 
 
 	include_once("content_type.php"); // this defines some variables for use within this pod
 	include_once("../../PeoplePods.php");
-	if ($_POST) {
-		$lockdown = 'verified';
-	} else {
-		$lockdown = null;
-	}
-	$POD = new PeoplePod(array('debug'=>0,'lockdown'=>$lockdown,'authSecret'=>$_COOKIE['pp_auth']));
+
+	$POD = new PeoplePod(array('debug'=>0,'authSecret'=>$_COOKIE['pp_auth']));
+
 
 	if ($_GET['stub']) {		
 		$doc = $POD->getContent(array('stub'=>$_GET['stub']));
@@ -58,6 +79,26 @@
 	}
 
 	if (isset($_POST['comment'])) {  // this is a request to post a comment
+		if (!$POD->isAuthenticated()) {
+			$POD->changeActor(array(
+				'id' => $POD->anonymousAccount()
+			));
+			// is their facebook id not set? if so we must subject them to captcha stuff
+			if (!$_POST['meta_who_fb_id'] || !is_numeric($_POST['meta_who_fb_id'])) {
+				// did they supply the appropriate captcha?
+				if (!$_POST['captcha'] || !$_POST['captchaHash']) {
+					// no captcha provided. probably a spambot.
+					header("Location:{$doc->permalink}?msg=".
+						urlencode('Please fill in the captcha field and try again.'));
+					exit;
+				} else if (rpHash($_POST['captcha']) != $_POST['captchaHash']) {
+					// captcha does not match. try again
+					header("Location:{$doc->permalink}?msg=".
+						urlencode('Your captcha response did not match the challenge. Please try again.'));
+					exit;
+				}
+			}
+		}
 
 		$comment = $doc->addComment($_POST['comment']);
 		if (!$comment || !$comment->success()) {
@@ -75,6 +116,14 @@
 		
 			$doc->comments()->reset();
 			$doc->comment_count = $cc;
+
+			if ($_POST['comment_who_name']) {
+				$comment->comment_who_name = $_POST['comment_who_name'];
+			}
+
+			if ($_POST['comment_who_email']) {
+				$comment->comment_who_email = $_POST['comment_who_email'];
+			}
 
 			if ($_POST['journalist']) {
 				$comment->journalist = true;
@@ -105,6 +154,7 @@
 	
 	}
 
+	
 	$POD->header($doc->get('headline')  );
 	if (isset($message)) { 
 		echo "<div class='info'>$message</div>";
