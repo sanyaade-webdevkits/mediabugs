@@ -11,6 +11,10 @@
 * Documentation for this pod can be found here:
 * http://peoplepods.net/readme/themes
 /**********************************************/
+$author_name = $comment->author()->nick;
+if ($comment->comment_who_name) {
+	$author_name = $comment->comment_who_name;
+}
 ?>
 <a name="<? $comment->write('id'); ?>"></a>
 <div class="comment <? if ($comment->get('isOddItem')) {?>comment_odd<? } ?> <? if ($comment->get('isEvenItem')) {?>comment_even<? } ?> <? if ($comment->get('isLastItem')) {?>comment_last<? } ?> <? if ($comment->get('isFirstItem')) {?>comment_first<? } ?> <? if($comment->journalist) { ?>comment_journalist<? } ?> <? if($comment->participant) { ?>comment_participant<? } ?>" id="comment<? $comment->write('id'); ?>">
@@ -20,7 +24,7 @@
 			<? if ($comment->POD->isAuthenticated() && ($comment->parent('userId') == $comment->POD->currentUser()->get('id') || $comment->get('userId') == $comment->POD->currentUser()->get('id'))) { ?>
 				<span class="gray remove_comment"><a href="#" onclick="return removeComment(<? $comment->write('id'); ?>);">Remove Comment</a></span>
 			<? } ?>
-			<?php echo $comment->author()->nick ?> said:
+			<?php echo $author_name ?> said:
 		</span>
 		<div>
 		<? $comment->writeFormatted('comment') ?>
