@@ -202,14 +202,22 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 											$('input[name=meta_who_fb_id]').val(user.id);
 											$('.fb-login-button').hide();
 											$('.hide_if_fb_authd').hide();
-											$('#who_are_you').text('You are logged in as ' + user.name + ' via Facebook.');
+											$('#who_are_you')
+												.text('You are logged in as ' + user.name + ' via Facebook.');
+											
 										}
 									});
 								};
-								loadFacebookData();
+								FB.getLoginStatus(function(response) {
+									loadFacebookData();
+								});
+								
+								FB.Event.subscribe('auth.login',function(response) {
+									if (/connected/i.test(response.status)) {
+										loadFacebookData();
+									}
+								});
 
-								// sometimes FB doesn't get it right the first time.
-								setTimeout(loadFacebookData, 3000);
 							};
 							(function(d){
 								 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
