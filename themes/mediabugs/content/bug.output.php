@@ -27,6 +27,7 @@ $author_name = $doc->author()->nick;
 if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
 	$author_name = $doc->who_name;
 }
+$fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app_id;
 
 ?>
 <div class="column_8">
@@ -165,6 +166,8 @@ if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
 		<a name="reply"></a>
 			<h3>Leave a comment</h3>
 			<form method="post" id="add_comment" class="valid">
+				<input type='hidden' name='meta_who_fb_id'>
+
 				<p style="margin:0px;" class="right_align">
 					<?php if ($POD->isAuthenticated()): ?>
 						You are logged in as <b><?php echo $POD->currentUser()->nick ?></b>.  
@@ -178,6 +181,50 @@ if (!empty($doc->who_name) && !$doc->author_name->adminUser) {
 					<p class='input'>
 						<label id='who_are_you'>Who are you?</label>
 					</p>
+					<?php if ($fb_app_id && !$POD->isAuthenticated()): ?>
+						<div id="fb-root"></div>
+						<script>
+							window.fbAsyncInit = function() {
+								FB.init({
+									appId			 : '<?php echo $fb_app_id ?>',
+									status		 : true, 
+									cookie		 : true,
+									xfbml			 : true
+								});
+								var loadFacebookData = function() {
+									FB.api('/me', function(user) {
+										console.log(user);
+										if (user && user.name && user.id) {
+											$('input[name=comment_who_name]').val(user.name);
+											$('input[name=meta_who_fb_id]').val(user.id);
+											$('.fb-login-button').hide();
+											$('.hide_if_fb_authd').hide();
+											$('#who_are_you')
+												.text('You are logged in as ' + user.name + ' via Facebook.');
+											
+										}
+									});
+								};
+								FB.getLoginStatus(function(response) {
+									loadFacebookData();
+								});
+								
+								FB.Event.subscribe('auth.login',function(response) {
+									if (/connected/i.test(response.status)) {
+										loadFacebookData();
+									}
+								});
+
+							};
+							(function(d){
+								 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+								 js = d.createElement('script'); js.id = id; js.async = true;
+								 js.src = "//connect.facebook.net/en_US/all.js";
+								 d.getElementsByTagName('head')[0].appendChild(js);
+							 }(document));
+						</script>
+						<div class="fb-login-button">Login with Facebook</div>
+					<?php endif ?>
 
 					<p class='input hide_if_fb_authd'>
 						<label for='comment_who_name'>Your Name</label>
