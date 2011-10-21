@@ -67,7 +67,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	echo "\nAbout to create the welcome message...";
 	$msg = $POD->getContent();
 	$msg->headline = 'Welcome Message';
-	$msg->type = 'interface_text';
+	$msg->type = 'interface';
 	$msg->body = 'This is the default welcome message for a MediaBugs site.';
 
 	$msg->save();
