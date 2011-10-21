@@ -47,10 +47,12 @@ if ($logo = $adminRecord->files()->contains('publication_img')) {
 
 	<script type="text/javascript" src="<? $POD->templateDir(); ?>/js/jquery-datepick/jquery.datepick.js"></script>
 	<script type="text/javascript" src="<? $POD->templateDir(); ?>/js/jquery-datepick/jquery.datepick-validation.js"></script>
+	<script src="<? $POD->templateDir() ?>/js/jquery.realperson.pack.js" type="text/javascript"></script>
 
 	<link rel="stylesheet" type="text/css" href="<? $POD->templateDir(); ?>/js/jquery-autocomplete/jquery.autocomplete.css" media="screen" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<? $POD->templateDir(); ?>/js/jquery-datepick/flora.datepick.css" media="screen" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<? $POD->templateDir(); ?>/styles.css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="<? $POD->templateDir() ?>/jquery.realperson.css" type="text/css" media="screen" charset="utf-8">
 
 	<? if ($feedurl) { ?>
 		<link rel="alternate" type="application/rss+xml" title="RSS: <? if ($pagetitle) { echo $pagetitle . " - " . $POD->siteName(false); } else { echo $POD->siteName(false); } ?>" href="<? echo $feedurl; ?>" />
