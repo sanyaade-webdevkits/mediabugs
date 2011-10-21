@@ -202,6 +202,11 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 											$('#who_are_you')
 												.text('You are logged in as ' + user.name + ' via Facebook.');
 											
+											// remove validation requirements from these forms
+											$('#comment_who_name, #comment_who_email, #captcha').
+											each(function() {
+												$(this).removeClass('required')
+											});
 										}
 									});
 								};
@@ -227,16 +232,16 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 					<?php endif ?>
 
 					<p class='input hide_if_fb_authd'>
-						<label for='comment_who_name'>Your Name</label>
-						<input name='comment_who_name' type='text'>
+						<label for='comment_who_name'>Your Name <span class="required">*</span></label>
+						<input id='comment_who_name' name='comment_who_name' type='text' class='text required'>
 					</p>
 					<p class='input hide_if_fb_authd'>
-						<label for='comment_who_email'>Your Email</label>
-						<input name='comment_who_email' type='text'>
+						<label for='comment_who_email'>Your Email <span class="required">*</span></label>
+						<input id='comment_who_email' name='comment_who_email' type='text' class='email required'>
 					</p>
 					<p class='input hide_if_fb_authd'>
 						<label for='captcha'>Captcha <span class="required">*</span></label>
-						<input id='captcha' name='captcha' type='text'>
+						<input id='captcha' name='captcha' type='text required'>
 					</p>
 				<?php endif ?>
 
