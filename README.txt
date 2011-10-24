@@ -13,7 +13,11 @@ Install Procedure:
 
   git clone git@github.com:xoxco/mediabugs.git peoplepods
 
-at the command line.
+at the command line. Alternative, download the tarball from
+
+  https://github.com/xoxco/mediabugs/tarball/master 
+
+into your chosen directory, and rename the directory that was created to "peoplepods".
 4. Once you have cloned MediaBugs, make sure the peoplepods directory is writeable by the web user.
 5. Navigate to http://SITE_ROOT/peoplepods to begin the installation process. Proceed through the steps and provide the requested-for information.
 6. Once the "MediaBugs onetime setup" has run, go to the MediaBugs publication admin tool at http://SITE_ROOT/spvadmin. Enter a name and URL for your media outlet, and provide an image if you have one. 
