@@ -317,55 +317,6 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 					
 			
 			<? } ?>
-		<? } else { // if is open, else is closed ?>
-		
-			<fieldset id="survey">
-				<h2>The bug <? $doc->permalink(); ?> is marked as closed.</h2>
-	
-				<? if (!$doc->surveyed) { ?>
-					<? $instructions_survey->output('interface_text'); ?>
-					
-					<p class="radio">
-						<label for="outcome_survey" class="label">How satisfied are you with the outcome of this bug?</label>
-						<input type="radio"  class="radio required" name="outcome_survey" value="satisfied" id="oss" /> <label for="oss">I'm very satisfied</label><br />
-						<input type="radio" class="radio"  name="outcome_survey" value="ok" id="oso"> <label for="oso">I'm ok with it</label><br />
-						<input type="radio" class="radio" name="outcome_survey" value="not" id="osn"> <label for="osn">I'm not satisfied at all</label>
-					</p>
-	
-					<p class="radio">
-						<label class="label" for="response_survey">How satisfied are you with the response of the news outlet responsible for this bug?</label>
-						<input type="radio" class="radio required"  name="response_survey" value="satisfied" id="rss"> <label for="rss">I'm very satisfied</label><br />
-						<input type="radio" class="radio" name="response_survey" value="ok" id="rso"> <label for="rso">I'm ok with it</label><br />
-						<input type="radio" class="radio" name="response_survey" value="not" id="rsn"> <label for="rsn">I'm not satisfied at all</label>
-					</p>
-	
-	
-					<p class="radio">
-						<label class="label" for="trust_survey">Has your trust in the news outlet changed as a result of this process?</label>
-						<input type="radio" class="radio required" name="trust_survey" value="more" id="tsm"> <label for="tsm">I trust it more</label><br />
-						<input type="radio" class="radio" name="trust_survey" value="same" id="tss"> <label for="tss">It's the same as before</label><br />
-						<input type="radio" class="radio" name="trust_survey" value="less" id="tsl"
-						> <label for="tsl">I trust it less</label>
-					</p>
-					
-					<p class="input">
-						<label for="survey_comments">Do you have any further comments?</label>
-						<textarea id="survey_comments" name="survey_comments" class="text tinymce."></textarea>
-					</p>
-					
-					<p class="input">
-						<input type="submit" name="survey" class="button" onclick="return validateSurvey();" value="Submit answers" />
-					</p>
-					<div class="clearer"></div>
-				<? } else { ?>
-
-				<? $instructions_survey_thanks->output('interface_text'); ?>
-	
-				<? } ?>
-				<p style="text-align:center;">Does something new need to be added to this bug?  <a href="?id=<?= $doc->id; ?>&reopen=1">Re-open this bug</a>.</p>
-
-			
-			</fieldset>
 		<? } // if is closed ?>
 					<div id="saving_progress" style="display: none;">
 						<strong>Saving...</strong>
