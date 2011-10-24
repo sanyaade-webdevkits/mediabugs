@@ -121,7 +121,6 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		'akismet',
 		'bugs_authentication_login',
 		'bugs_browse',
-		'bugs_cron',
 		'bugs_dashboard',
 		'bugs_featured',
 		'bugs_features',
