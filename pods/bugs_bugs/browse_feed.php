@@ -58,11 +58,6 @@
 			$title ="Search for \"{$term}\"";
 			$key = 'or';
 			$term = array('headline:like'=>"%{$term}%",'body:like'=>"%{$term}%");
-			
-			// also search the outlet database
-			// if a matching outlet is found, display that as an alternative
-			// Do you want to see bugs associated with "The Washington Post" instead?
-			
 		} else if ($mode=="date") { 
 			$title ="By date";
 			$key = 1;
