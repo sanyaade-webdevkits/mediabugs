@@ -102,7 +102,9 @@ if ($adminRecord && $logo = $adminRecord->files()->contains('publication_img')) 
 			?>
 				<div id='header_logo' class="column_7 last right_align">
 					<?php if ($logo): ?>
-						<img src='<?php echo $logo->src(100) ?>'>
+						<a href='<?php echo $adminRecord->publication_url ?>'>
+							<img src='<?php echo $logo->src(100) ?>'>
+						</a>
 					<?php endif?>
 					<a href='<?php echo $adminRecord->publication_url ?>'>
 						Back to <?php echo $adminRecord->publication_name ?>
