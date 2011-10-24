@@ -31,8 +31,6 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 	$instructions_report = $POD->getContent(array('stub'=>'instructions-report-bug'));
 	$instructions_what = $POD->getContent(array('stub'=>'instructions-what-bug'));
 	$instructions_why = $POD->getContent(array('stub'=>'instructions-why-bug'));
-	$instructions_status = $POD->getContent(array('stub'=>'instructions-status-bug'));
-	$instructions_edit = $POD->getContent(array('stub'=>'instructions-edit-bug'));
 
 	$instructions_survey = $POD->getContent(array('stub'=>'instructions-survey'));
 	$instructions_survey_thanks = $POD->getContent(array('stub'=>'instructions-survey-thanks'));
