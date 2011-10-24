@@ -194,15 +194,15 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 								});
 								var loadFacebookData = function() {
 									FB.api('/me', function(user) {
-										console.log(user);
 										if (user && user.name && user.id) {
 											$('input[name=meta_who_name]').val(user.name);
 											$('input[name=meta_who_fb_id]').val(user.id);
 											$('.fb-login-button').hide();
 											$('.hide_if_fb_authd').hide();
 											$('#who_are_you')
-												.text('You are logged in as ' + user.name + ' via Facebook.');
-											
+												.text('You are logged in as ' + user.name + ' via Facebook. ');
+											$('#who_are_you')
+												.append('<a href="javascript:FB.logout()">Logout</a>');
 										}
 									});
 								};
@@ -215,6 +215,15 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 										loadFacebookData();
 									}
 								});
+
+								FB.Event.subscribe('auth.logout',function(response) {
+									$('input[name=meta_who_name]').val('');
+									$('input[name=meta_who_fb_id]').val('');
+									$('.fb-login-button').show();
+									$('.hide_if_fb_authd').show();
+									$('#who_are_you').text('Who are you? [optional]');
+								});
+
 
 							};
 							(function(d){
