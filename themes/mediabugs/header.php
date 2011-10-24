@@ -18,7 +18,7 @@
 $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
 $topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
 
-if ($logo = $adminRecord->files()->contains('publication_img')) {
+if ($adminRecord && $logo = $adminRecord->files()->contains('publication_img')) {
 	// we have a logo.
 } else {
 	$logo = false;
