@@ -193,20 +193,20 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 								});
 								var loadFacebookData = function() {
 									FB.api('/me', function(user) {
-										console.log(user);
 										if (user && user.name && user.id) {
 											$('input[name=comment_who_name]').val(user.name);
 											$('input[name=meta_who_fb_id]').val(user.id);
 											$('.fb-login-button').hide();
 											$('.hide_if_fb_authd').hide();
 											$('#who_are_you')
-												.text('You are logged in as ' + user.name + ' via Facebook.');
+												.text('You are logged in as ' + user.name + ' via Facebook. ');
+
+											$('#who_are_you')
+												.append('<a href="javascript:FB.logout()">Logout</a>');
 											
 											// remove validation requirements from these forms
-											$('#comment_who_name, #comment_who_email, #captcha').
-											each(function() {
-												$(this).removeClass('required')
-											});
+											$('#comment_who_name, #comment_who_email, #captcha')
+												.each(function() { $(this).removeClass('required') });
 										}
 									});
 								};
@@ -219,6 +219,19 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 										loadFacebookData();
 									}
 								});
+
+								FB.Event.subscribe('auth.logout',function(response) {
+									$('input[name=comment_who_name]').val('');
+									$('input[name=meta_who_fb_id]').val('');
+									$('.fb-login-button').show();
+									$('.hide_if_fb_authd').show();
+									$('#who_are_you').text('Who are you?');
+
+									// add validation requirements to this form
+									$('#comment_who_name, #comment_who_email, #captcha')
+										.each(function() { $(this).addClass('required') });
+								});
+
 
 							};
 							(function(d){
