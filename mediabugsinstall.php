@@ -74,20 +74,25 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		}		
 	}
 
-	echo "\nAbout to create the welcome message...";
-	$msg = $POD->getContent();
-	$msg->headline = 'Welcome Message';
-	$msg->type = 'interface';
-	$msg->body = 'This is the default welcome message for a MediaBugs site.';
-
-	$msg->save();
-	
-	if ($msg->success()) {
-		echo "created!";
+	if ($POD->getContent(array('stub'=>'welcome-message'))->success()) {
+		echo "\nThe welcome message already exists!";
 	} else {
-		echo "was not created: {$msg->error()}";
-		$errored = true;
+		echo "\nAbout to create the welcome message...";
+		$msg = $POD->getContent();
+		$msg->headline = 'Welcome Message';
+		$msg->type = 'interface';
+		$msg->body = 'This is the default welcome message for a MediaBugs site.';
+		$msg->stub = 'welcome-message';
+		$msg->save();
+	
+		if ($msg->success()) {
+			echo "created!";
+		} else {
+			echo "was not created: {$msg->error()}";
+			$errored = true;
+		}
 	}
+
 	
 	echo "\nAbout to create textblocks for the 'Report a Bug' page";
 	$textblocks = array(
