@@ -204,6 +204,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 													.text('You are logged in as ' + user.name + ' via Facebook. ');
 												$('#who_are_you')
 													.append('<a href="javascript:FB.logout()">Logout</a>');
+												$('#captcha').removeClass('required');
 											}
 										});
 									};
@@ -222,6 +223,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 										$('input[name=meta_who_fb_id]').val('');
 										$('.fb-login-button').show();
 										$('.hide_if_fb_authd').show();
+										$('#captcha').addClass('required');
 										$('#who_are_you').text('Who are you? [optional]');
 									});
 	
@@ -252,7 +254,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
           <?php if (!$doc->saved()): ?>
 						<p class='input hide_if_fb_authd'>
 							<label for='captcha'>Captcha <span class="required">*</span></label>
-							<input id='captcha' name='captcha' type='text' class='text'>
+							<input id='captcha' name='captcha' type='text' class='text required'>
 						</p>
           <?php endif ?>
           
@@ -337,6 +339,7 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 	<script type="text/javascript">
 			$('fieldset').show();
 			$('p.nextbutton').hide();
+			$('#captcha').removeClass('required');
 	</script>
 <? } ?>
 

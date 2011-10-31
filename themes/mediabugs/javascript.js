@@ -190,13 +190,18 @@
 				return false;
 			
 			}
-			if (sectionName=='what') { 
-			
-					if ($('#bug').validate().element('#bug_type') && $('#bug').validate().element('#bug_body') && $('#bug').validate().element('#report_date')) {
-						return true;
-					} else {
-						return false;
-					}
+			if (sectionName=='what') { 		
+				if ($('#bug').validate().element('#bug_type') 
+						&& $('#bug').validate().element('#bug_body') 
+						&& $('#bug').validate().element('#report_date')
+						&& $('#bug').validate().element('#captcha')) 
+				{
+					return true;
+				} 
+				else 
+				{
+					return false;
+				}
 			
 			}		
 			return true;
