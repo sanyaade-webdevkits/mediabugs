@@ -51,37 +51,6 @@
 					}
 					
 					$USER = $POD->currentUser();
-
-					if ($_COOKIE['claim']) { 
-						$POD->changeActor(array('nick'=>'admin'));
-						$claim = $POD->getContent(array('id'=>$_COOKIE['claim']));
-						if ($claim->success()) { 
-							if ($claim->author()->id == $POD->anonymousAccount()) { 
-								
-								$claim->set('userId',$USER->id);
-								$claim->save();
-								if($claim->success()) { 	
-								
-									$claimed = $claim->id;
-										
-									// we also need to reset the first status comment!
-									$comments = $POD->getComments(array('contentId'=>$claim->id,'type'=>'status'),'date asc');
-									while ($comment = $comments->getNext()) { 
-										if ($comment->userId==$POD->anonymousAccount()) { 
-											$comment->userId = $USER->id;
-											$comment->save();
-										}
-									}
-									
-									
-									$USER->addWatch($claim);
-								} else {
-								}
-							} else {
-							}
-						}
-						$POD->changeActor(array('id'=>$USER->id));
-					}
 		
 					setcookie('claim','',time(),"/");
 					setcookie('pp_auth',$POD->currentUser()->get('authSecret'),time()+(86400 * $days),"/");

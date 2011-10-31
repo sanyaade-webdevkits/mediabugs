@@ -37,40 +37,6 @@
 				$POD = new PeoplePod(array('authSecret'=>$NEWUSER->get('authSecret')));
 				$redir = true;
 				
-				
-				if ($_COOKIE['claim']) { 
-					$POD->changeActor(array('nick'=>'admin'));
-					$claim = $POD->getContent(array('id'=>$_COOKIE['claim']));
-					if ($claim->success()) { 
-						if ($claim->author()->id == $POD->anonymousAccount()) { 
-							
-							$claim->set('userId',$NEWUSER->id);
-							$claim->save();
-							if($claim->success()) { 	
-							
-								$claimed = $claim->id;
-									
-								// we also need to reset the first status comment!
-									$comments = $POD->getComments(array('contentId'=>$claim->id,'type'=>'status'),'date asc');
-									while ($comment = $comments->getNext()) { 
-										if ($comment->userId==$POD->anonymousAccount()) { 
-											$comment->userId = $NEWUSER->id;
-											$comment->save();
-										}
-									}
-
-								
-								
-								$NEWUSER->addWatch($claim);
-							} else {
-							}
-						} else {
-						}
-					} else {
-					}
-					$POD->changeActor(array('id'=>$NEWUSER->id));
-				}
-
 				setcookie('claim','',time(),"/");
 
 				
