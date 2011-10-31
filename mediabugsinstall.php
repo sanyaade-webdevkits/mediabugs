@@ -111,7 +111,10 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		'core_friends',
 		'core_groups',
 		'core_invite',
-		'core_search'
+		'core_search',
+		'contenttype_document_add',
+		'contenttype_document_list',
+		'contenttype_document_view'
 	);
 	
 	foreach ($irrelevant_pods as $p) {
