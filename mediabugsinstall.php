@@ -106,8 +106,12 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	echo "\nAbout to disable irrelevant pods";
 	$irrelevant_pods = array(
-		'core_profiles',
-		'core_authentication_creation'
+		'core_dashboard',
+		'core_feeds',
+		'core_friends',
+		'core_groups',
+		'core_invite',
+		'core_search'
 	);
 	
 	foreach ($irrelevant_pods as $p) {
