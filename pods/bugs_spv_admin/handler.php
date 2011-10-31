@@ -58,6 +58,15 @@ if (!empty($_POST)) {
 		$POD->saveLibOptions();
 	}
 
+	if (isset($_POST['akismet_key'])) {
+		$POD->setLibOptions('akismet_key',$_POST['akismet_key']);
+		$POD->saveLibOptions();
+	}
+
+	if (isset($_POST['akismet_notify_email'])) {
+		$POD->setLibOptions('akismet_notify_email',$_POST['akismet_notify_email']);
+		$POD->saveLibOptions();
+	}
 }
 
 $POD->adminRecord = $admin_record;

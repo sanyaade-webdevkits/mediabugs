@@ -54,6 +54,21 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 				<input id='publication_img' type='file' name='publication_img'>
 			</p>
 			
+			<p class='input'>
+				<label for='akismet_key'>
+					Akismet API Key
+					(Don't have one? Sign up <a href='https://akismet.com/signup/'>here</a>)
+				</label>
+				<input type='text' name='akismet_key'
+					value='<? echo htmlspecialchars($POD->libOptions('akismet_key')) ?>'>
+			</p>
+			
+			<p class='input'>
+				<label for='akismet_notify_email'>Specify notification email for spam (optional)</label>
+				<input type='text' name='akismet_notify_email'
+					value='<? echo htmlspecialchars($POD->libOptions('akismet_notify_email')) ?>'>
+			</p>
+			
 			<p class='input' id='save_button'>
 				<input class='button' type='submit' value='Update Publication'>
 			</p>
@@ -73,6 +88,9 @@ $(function() {
 		rules: {
 			publication_url: {
 				url: true
+			},
+			akismet_notify_email: {
+				email: true
 			}
 		}
 	})
