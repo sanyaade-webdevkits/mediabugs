@@ -95,25 +95,40 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 
 	
 	echo "\nAbout to create textblocks for the 'Report a Bug' page";
+
 	$textblocks = array(
-		'Instructions report bug' => "Report a media bug when you think you've found a correctable error in a media report in print, broadcast, or online. Please be specific!",
-		'Instructions what bug' => "Please provide details about the bug you discovered, including the type of error and where the error occurred in the story.",
-		'Instructions why bug' => "If you have further information in support of your bug report, please provide it here.. You may also attach images or other files to the bug report by uploading them below. All uploaded files will become available on your bug's page."
+		'Instructions report bug' => array(
+			'instructions-report-bug',
+			"Report a media bug when you think you've found a correctable error in a media report in print, broadcast, or online. Please be specific!"
+		),
+		'Instructions what bug' => array(
+			'instructions-what-bug',
+			"Please provide details about the bug you discovered, including the type of error and where the error occurred in the story."
+		),
+		'Instructions why bug' => array(
+			'instructions-why-bug',
+			"If you have further information in support of your bug report, please provide it here.. You may also attach images or other files to the bug report by uploading them below. All uploaded files will become available on your bug's page."
+		)
 	);
 	
-	foreach($textblocks as $headline => $body) {
-		echo "\nCreating '$body': ";
-		$tb = $POD->getContent();
-		$tb->headline = $headline;
-		$tb->type = 'interface';
-		$tb->body = $body;
-		
-		$tb->save();
-		if ($tb->success()) {
-			echo "success.";
+	foreach($textblocks as $headline => $details) {
+		if ($POD->getContent(array('stub'=>$details[0]))->success()) {
+			echo "\n'$headline' already exists!";
 		} else {
-			echo "failed.";
-			$errored = true;
+			echo "\nCreating '$headline': ";
+			$tb = $POD->getContent();
+			$tb->headline = $headline;
+			$tb->type = 'interface';
+			$tb->stub = $details[0];
+			$tb->body = $details[1];
+		
+			$tb->save();
+			if ($tb->success()) {
+				echo "success.";
+			} else {
+				echo "failed.";
+				$errored = true;
+			}
 		}
 	}
 	
