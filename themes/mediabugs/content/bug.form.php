@@ -178,79 +178,84 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 						</script>
 					</p>
 	
-					<p class='input'>
-						<label id='who_are_you'>Who are you? [optional]</label>
-					</p>
-					<?php if ($fb_app_id && !$POD->isAuthenticated()): ?>
-						<div id="fb-root"></div>
-					
-						<script>
-							window.fbAsyncInit = function() {
-								FB.init({
-									appId			 : '<?php echo $fb_app_id ?>',
-									status		 : true, 
-									cookie		 : true,
-									xfbml			 : true
-								});
-								var loadFacebookData = function() {
-									FB.api('/me', function(user) {
-										if (user && user.name && user.id) {
-											$('input[name=meta_who_name]').val(user.name);
-											$('input[name=meta_who_fb_id]').val(user.id);
-											$('.fb-login-button').hide();
-											$('.hide_if_fb_authd').hide();
-											$('#who_are_you')
-												.text('You are logged in as ' + user.name + ' via Facebook. ');
-											$('#who_are_you')
-												.append('<a href="javascript:FB.logout()">Logout</a>');
+          <?php if (!$doc->saved()): ?>
+						<p class='input'>
+							<label id='who_are_you'>Who are you? [optional]</label>
+						</p>
+						<?php if ($fb_app_id && !$POD->isAuthenticated()): ?>
+							<div id="fb-root"></div>
+						
+							<script>
+								window.fbAsyncInit = function() {
+									FB.init({
+										appId			 : '<?php echo $fb_app_id ?>',
+										status		 : true, 
+										cookie		 : true,
+										xfbml			 : true
+									});
+									var loadFacebookData = function() {
+										FB.api('/me', function(user) {
+											if (user && user.name && user.id) {
+												$('input[name=meta_who_name]').val(user.name);
+												$('input[name=meta_who_fb_id]').val(user.id);
+												$('.fb-login-button').hide();
+												$('.hide_if_fb_authd').hide();
+												$('#who_are_you')
+													.text('You are logged in as ' + user.name + ' via Facebook. ');
+												$('#who_are_you')
+													.append('<a href="javascript:FB.logout()">Logout</a>');
+											}
+										});
+									};
+									FB.getLoginStatus(function(response) {
+										loadFacebookData();
+									});
+									
+									FB.Event.subscribe('auth.login',function(response) {
+										if (/connected/i.test(response.status)) {
+											loadFacebookData();
 										}
 									});
+	
+									FB.Event.subscribe('auth.logout',function(response) {
+										$('input[name=meta_who_name]').val('');
+										$('input[name=meta_who_fb_id]').val('');
+										$('.fb-login-button').show();
+										$('.hide_if_fb_authd').show();
+										$('#who_are_you').text('Who are you? [optional]');
+									});
+	
+	
 								};
-								FB.getLoginStatus(function(response) {
-									loadFacebookData();
-								});
-								
-								FB.Event.subscribe('auth.login',function(response) {
-									if (/connected/i.test(response.status)) {
-										loadFacebookData();
-									}
-								});
-
-								FB.Event.subscribe('auth.logout',function(response) {
-									$('input[name=meta_who_name]').val('');
-									$('input[name=meta_who_fb_id]').val('');
-									$('.fb-login-button').show();
-									$('.hide_if_fb_authd').show();
-									$('#who_are_you').text('Who are you? [optional]');
-								});
-
-
-							};
-							(function(d){
-								 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-								 js = d.createElement('script'); js.id = id; js.async = true;
-								 js.src = "//connect.facebook.net/en_US/all.js";
-								 d.getElementsByTagName('head')[0].appendChild(js);
-							 }(document));
-						</script>
-						<div class="fb-login-button">Login with Facebook</div>
+								(function(d){
+									 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+									 js = d.createElement('script'); js.id = id; js.async = true;
+									 js.src = "//connect.facebook.net/en_US/all.js";
+									 d.getElementsByTagName('head')[0].appendChild(js);
+								 }(document));
+							</script>
+							<div class="fb-login-button">Login with Facebook</div>
+						<?php endif ?>
 					<?php endif ?>
-					
 					<p class='input hide_if_fb_authd'>
 						<label for='meta_who_name'>Name</label>
-						<input name='meta_who_name' type='text' class='text'>
+						<input name='meta_who_name' type='text' 
+              class='text' value='<?php echo $doc->who_name ?>'>
 					</p>
 
 					<p class='input hide_if_fb_authd'>
 						<label for='meta_who_email'>Email</label>
-						<input name='meta_who_email' type='text' class='text'>
+						<input name='meta_who_email' type='text' 
+              class='text' value='<?php echo $doc->who_email ?>'>
 					</p>
 
-					<p class='input hide_if_fb_authd'>
-						<label for='captcha'>Captcha <span class="required">*</span></label>
-						<input id='captcha' name='captcha' type='text' class='text'>
-					</p>
-
+          <?php if (!$doc->saved()): ?>
+						<p class='input hide_if_fb_authd'>
+							<label for='captcha'>Captcha <span class="required">*</span></label>
+							<input id='captcha' name='captcha' type='text' class='text'>
+						</p>
+          <?php endif ?>
+          
 					<p class="input nextbutton"><a href="#why" class="littlebutton" onclick="return nextSection('what','why');">Continue</a> <span>to attach files or other supporting evidence.</span></p>
 					<div class="clearer bottom_20"></div>
 					<p class="input nextbutton">.<input type="submit" class="button" value="Save Bug" /> <span>if you're done.</span></p>
