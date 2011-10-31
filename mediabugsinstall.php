@@ -10,6 +10,11 @@ function _p($contents) {
 	echo "<p>".$contents."</p>";
 }
 
+function _pb($contents) {
+	echo "<p><b>".$contents."</b></p>";
+}
+
+
 function _next($contents) {
 	echo "<p id='next'><b>".$contents."</b></p>";
 }
@@ -71,7 +76,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 			if ($bugtype->success()) {
 				_p("'$bt' was created!");
 			} else {
-				_p("'$bt' was not created: {$bugtype->error()}");
+				_pb("'$bt' was not created: {$bugtype->error()}");
 				$errored = true;
 			}
 		}
@@ -90,7 +95,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		if ($anon_user->success()) {
 			_p("The anonymous user was created!");
 		} else {
-			_p("The anonymous user was not created: {$anon_user->error()}");
+			_pb("The anonymous user was not created: {$anon_user->error()}");
 			$errored = true;
 		}		
 	}
@@ -108,7 +113,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		if ($msg->success()) {
 			_p("The welcome message was created!");
 		} else {
-			_p("was not created: {$msg->error()}");
+			_pb("was not created: {$msg->error()}");
 			$errored = true;
 		}
 	}
@@ -145,7 +150,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 			if ($tb->success()) {
 				_p("Creating '$headline': success.");
 			} else {
-				_p("Creating '$headline': failed.");
+				_pb("Creating '$headline': failed: {$tb->error()}");
 				$errored = true;
 			}
 		}
@@ -201,7 +206,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	}
 	$POD->saveLibOptions();
 	if (!$POD->success()) {
-		_p("there was an error installing/disabling these pods.");
+		_pb("there was an error installing/disabling these pods.");
 		$errored = true;
 	} else {
 		_p("SUCCESS!");
@@ -224,7 +229,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		else if (mkdir($dir, 0775, true)) {
 			_p("$dir was successfully created.");
 		} else {
-			_p("There was an error trying to create $dir.");
+			_pb("There was an error trying to create $dir.");
 			$errored = true;
 		}
 	}
