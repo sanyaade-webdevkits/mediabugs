@@ -22,6 +22,8 @@ if ($admin_records->count() == 0) {
 	$admin_record = $admin_records->getNext();
 }
 
+$POD->updated = false;
+
 if (!empty($_POST)) {
 	if (!empty($_FILES)) {
 		$admin_record->addFile('publication_img', $_FILES['publication_img']);
@@ -30,19 +32,23 @@ if (!empty($_POST)) {
 			$POD->error_msg = $admin_record->error();
 		} else {
 			$admin_record->files()->fill();
+			$POD->updated = true;
 		}
 	}
 
 	if (isset($_POST['publication_name'])) {
 		$admin_record->publication_name = $_POST['publication_name'];
+		$POD->updated = true;
 	}
 	
 	if (isset($_POST['publication_url'])) {
 		$admin_record->publication_url = $_POST['publication_url'];
+		$POD->updated = true;
 	}
 
 	if (isset($_POST['fb_app_id'])) {
 		$admin_record->fb_app_id = $_POST['fb_app_id'];
+		$POD->updated = true;
 	}
 
 	$admin_record->save();

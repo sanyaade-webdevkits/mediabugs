@@ -9,6 +9,8 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 ?>
 <?php if ($POD->error_msg): ?>
 	<p class='error_message'><?php echo $POD->error_msg ?></p>
+<?php elseif ($POD->updated): ?>
+	<p class='info'>Successfully updated settings.</p>
 <?php endif ?>
 <div class='grid'>
 	<div id='spv_form'>
