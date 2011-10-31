@@ -80,11 +80,51 @@ function leftShift32($number, $steps) {
 				// did they supply the appropriate captcha?
 				if (!$_POST['captcha'] || !$_POST['captchaHash']) {
 					// no captcha provided. probably a spambot.
-					header("Location: $redirect/bugs/edit?msg=".urlencode('Please fill in the captcha field and try again.'));
+					$POD->error_msg = 'Please fill in the captcha field and try again.';
+					$new = $POD->getContent(array('type'=>$content_type));
+					
+					// can't just lose all the input we just provided.
+					foreach ($_POST as $key=>$value) {
+						$new->$key = $value;
+						if (preg_match("/^meta_(.*)/",$key,$match)) { 
+							$key = $match[1];
+							if ($key == 'bug_status') { 
+								continue;
+							}
+							if ($key == 'supporting_evidence') { 
+								$value = strip_tags($value,'<p><b><i><em><strong><ul><ol><bl><li><a>');
+							}
+							$new->addMeta($key,$value,false);
+						}
+					}
+
+					$POD->header("Add Something");
+					$new->output($input_template);
+					$POD->footer();
 					exit;
 				} else if (rpHash($_POST['captcha']) != $_POST['captchaHash']) {
 					// captcha does not match. try again
-					header("Location: $redirect/bugs/edit?msg=".urlencode('Your captcha response did not match the challenge. Please try again.'));
+					$POD->error_msg = 'Your captcha response did not match the challenge. Please try again.';
+					$new = $POD->getContent(array('type'=>$content_type));
+
+					// can't just lose all the input we just provided.
+					foreach ($_POST as $key=>$value) {
+						$new->$key = $value;
+						if (preg_match("/^meta_(.*)/",$key,$match)) { 
+							$key = $match[1];
+							if ($key == 'bug_status') { 
+								continue;
+							}
+							if ($key == 'supporting_evidence') { 
+								$value = strip_tags($value,'<p><b><i><em><strong><ul><ol><bl><li><a>');
+							}
+							$new->addMeta($key,$value,false);
+						}
+					}
+
+					$POD->header("Add Something");
+					$new->output($input_template);
+					$POD->footer();
 					exit;
 				}
 			}
