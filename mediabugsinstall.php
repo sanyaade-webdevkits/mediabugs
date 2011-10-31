@@ -16,36 +16,42 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	echo "About to run MediaBugs onetime setup.\n";
 	
 	$bug_types = array(
-		'Error of Omission',
-		'Typo, Spelling, Grammar',
-		'Misquotation',
-		'Mistaken Identity',
-		'Photo/Illustration Error',
-		'Simple Factual Error',
-		'Headline Problem',
-		'Fabrication',
-		'Ethical Issue',
-		'Other',
-		'Faulty Statistics or Math',
+		'Error of Omission' => 'error-of-omission',
+		'Typo, Spelling, Grammar' => 'typo-spelling-grammar',
+		'Misquotation' => 'misquotation',
+		'Mistaken Identity' => 'mistaken-identity',
+		'Photo/Illustration Error' => 'photoillustration-error',
+		'Simple Factual Error' => 'simple-factual-error',
+		'Headline Problem' => 'headline-problem',
+		'Fabrication' => 'fabrication',
+		'Ethical Issue' => 'ethical-issue',
+		'Other' => 'other',
+		'Faulty Statistics or Math' => 'faulty-statistics-or-math',
 	);
 
 	echo "About to create standard bug types:\n";
 
-	foreach ($bug_types as $bt) {
-		echo "\nAbout to create '$bt'...";
-		$bugtype = $POD->getContent();
-
-		$bugtype->headline = $bt;
-		$bugtype->type = 'bug_type';
-		
-		$bugtype->save();
-		
-		if ($bugtype->success()) {
-			echo "created!";
+	foreach ($bug_types as $bt =>$stub) {
+		if ($POD->getContent(array('stub'=>$stub))->success()) {
+			echo "\n$bt already exists";
 		} else {
-			echo "was not created: {$bugtype->error()}";
-			$errored = true;
+			echo "\nAbout to create '$bt'...";
+			$bugtype = $POD->getContent();
+
+			$bugtype->headline = $bt;
+			$bugtype->type = 'bug_type';
+			$bugtype->stub = $stub;
+			$bugtype->save();
+		
+			if ($bugtype->success()) {
+				echo "created!";
+			} else {
+				echo "was not created: {$bugtype->error()}";
+				$errored = true;
+			}
+
 		}
+
 	}
 	
 	echo "\nAbout to create the 'Anonymous' user...";
