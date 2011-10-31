@@ -10,6 +10,10 @@ function _p($contents) {
 	echo "<p>".$contents."</p>";
 }
 
+function _next($contents) {
+	echo "<p id='next'><b>".$contents."</b></p>";
+}
+
 ?>
 <html>
 <head>
@@ -24,6 +28,7 @@ function _p($contents) {
 		label { font-weight: bold; display: block; }
 		input.text { width: 100%;font-size: 20px;}
 		div.info { background: #FFFF99; padding: 10px; margin-bottom: 20px; } 
+		#next { font-size: 36px; text-align: center; }
 	</style>
 </head>
 <body>
@@ -231,7 +236,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$POD->setLibOptions('currentTheme','mediabugs');
 		$POD->saveLibOptions(true);
 		_p("All done!");
-		_p("You might want to go to {$POD->siteRoot(false)}/spvadmin to set publication details");
+		_next("<a href='{$POD->siteRoot(false)}/spvadmin'>NEXT &rarr;</a>");
 	}
 	
 }
