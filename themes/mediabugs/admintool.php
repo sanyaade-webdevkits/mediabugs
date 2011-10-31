@@ -25,7 +25,10 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 					value='<?php echo $POD->adminRecord->publication_url ?>'>
 			</p>
 			<p class='input'>
-				<label for='fb_app_id'>Facebook App ID</label>
+				<label for='fb_app_id'>
+					Facebook App ID 
+					(get one <a href='https://developers.facebook.com/apps'>here</a>)
+				</label>
 				<input name="fb_app_id" type='text'
 					value='<?php echo $POD->adminRecord->fb_app_id ?>'>
 			</p>
