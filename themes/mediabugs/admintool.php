@@ -16,6 +16,13 @@ if ($logo = $POD->adminRecord->files()->contains('publication_img')) {
 	<div id='spv_form'>
 		<form id='spv_admin' action='<?php $POD->siteRoot()?>/spvadmin' 
 				method='POST' enctype='multipart/form-data'>
+				
+			<p class='input'>
+				<label for='site_name'>This site's name</label>
+				<input name="site_name" type='text' 
+					value='<? echo htmlspecialchars($POD->libOptions('siteName')); ?>'>
+			</p>
+			
 			<p class='input'>
 				<label for='publication_name'>Publication Name</label>
 				<input name="publication_name" type='text' 

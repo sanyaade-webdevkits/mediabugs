@@ -53,6 +53,11 @@ if (!empty($_POST)) {
 
 	$admin_record->save();
 
+	if (isset($_POST['site_name'])) {
+		$POD->setLibOptions('siteName',$_POST['site_name']);
+		$POD->saveLibOptions();
+	}
+
 }
 
 $POD->adminRecord = $admin_record;
