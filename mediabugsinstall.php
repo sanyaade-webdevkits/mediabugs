@@ -122,8 +122,6 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		'bugs_authentication_login',
 		'bugs_browse',
 		'bugs_dashboard',
-		'bugs_featured',
-		'bugs_features',
 		'bugs_home',
 		'bugs_lists',
 		'bugs_moderation',
