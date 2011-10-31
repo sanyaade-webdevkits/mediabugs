@@ -1,3 +1,6 @@
 lib/etc/options.php
 files/*
 .DS_Store
+.buildpath
+.project
+.settings
