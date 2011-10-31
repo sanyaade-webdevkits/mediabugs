@@ -608,12 +608,26 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 
 #add_comment .input #captcha {
 	width: 210px;
+	border: 1px solid #ddd;
+	font-size: 24px;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	background: url(img/input_skin.png) repeat-x;
+
 }
 
 #add_comment .input input[type='text'] {
 	border: 1px solid #ddd;
 	font-size: 24px;
+	width: 98%;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	background: url(img/input_skin.png) repeat-x;
+
 }
+
 
 
 #add_comment .hide_if_fb_authd .realperson-challenge {
