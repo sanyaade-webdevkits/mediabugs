@@ -18,7 +18,6 @@ if ($comment->comment_who_name) {
 ?>
 <a name="<? $comment->write('id'); ?>"></a>
 <div class="comment <? if ($comment->get('isOddItem')) {?>comment_odd<? } ?> <? if ($comment->get('isEvenItem')) {?>comment_even<? } ?> <? if ($comment->get('isLastItem')) {?>comment_last<? } ?> <? if ($comment->get('isFirstItem')) {?>comment_first<? } ?> <? if($comment->journalist) { ?>comment_journalist<? } ?> <? if($comment->participant) { ?>comment_participant<? } ?>" id="comment<? $comment->write('id'); ?>">
-	<? $comment->author()->output('avatar'); ?>
 	<div class="comment_body">
 		<span class="byline">
 			<? if ($comment->POD->isAuthenticated() && ($comment->parent('userId') == $comment->POD->currentUser()->get('id') || $comment->get('userId') == $comment->POD->currentUser()->get('id'))) { ?>

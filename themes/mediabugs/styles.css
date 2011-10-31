@@ -213,7 +213,7 @@
 	.comment p:last-child {   margin-bottom:10px;} 	
 
 	.comment .comment_info { font-weight: bold; color: #336633; }
-	.comment_body { margin-left: 80px; padding: 10px;  }
+	.comment_body { padding: 10px;  }
 
 
 	
