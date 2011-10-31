@@ -136,7 +136,8 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		'contenttype_bug_view',
 		'contenttype_document_add',
 		'contenttype_document_list',
-		'contenttype_document_view'
+		'contenttype_document_view',
+		'core_pages'
 	);
 	
 	foreach($pods as $p) {
