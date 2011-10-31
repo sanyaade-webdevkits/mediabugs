@@ -6,14 +6,35 @@ $POD = new PeoplePod(array(
 	'lockdown'=>'adminUser'
 ));
 
-header('Content-type: text/plain');
+function _p($contents) {
+	echo "<p>".$contents."</p>";
+}
 
+?>
+<html>
+<head>
+	<title>PeoplePods Installer</title>
+	<style>
+		
+		body { background: #F0F0F0; color: #3A3A3A;font-family: "Trebuchet MS"; }
+		div#installer { margin: auto; width: 500px; background: #FFF; border-right: 3px solid #CCC; border-bottom: 3px solid #CCC; font-size: 24px; padding: 20px; }
+		p { margin-top: 0px; }
+		p.error { background: #FFFF99; color: #F00; } 
+		p.footer { font-size: 12px; } 
+		label { font-weight: bold; display: block; }
+		input.text { width: 100%;font-size: 20px;}
+		div.info { background: #FFFF99; padding: 10px; margin-bottom: 20px; } 
+	</style>
+</head>
+<body>
+<div id='installer'>
+<?php
 if ($POD->libOptions('mediabugs_onetime_setup')) {
-	echo "The MediaBugs install script has already run.\n";
+	_p("The MediaBugs install script has already run.");
 } else {
 	$errored = false;
 
-	echo "About to run MediaBugs onetime setup.\n";
+	_p("About to run MediaBugs onetime setup.\n");
 	
 	$bug_types = array(
 		'Error of Omission' => 'error-of-omission',
@@ -29,13 +50,13 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		'Faulty Statistics or Math' => 'faulty-statistics-or-math',
 	);
 
-	echo "About to create standard bug types:\n";
+	_p("About to create standard bug types:");
 
 	foreach ($bug_types as $bt =>$stub) {
 		if ($POD->getContent(array('stub'=>$stub))->success()) {
-			echo "\n$bt already exists";
+			_p("$bt already exists");
 		} else {
-			echo "\nAbout to create '$bt'...";
+			_p("About to create '$bt'...");
 			$bugtype = $POD->getContent();
 
 			$bugtype->headline = $bt;
@@ -44,9 +65,9 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 			$bugtype->save();
 		
 			if ($bugtype->success()) {
-				echo "created!";
+				_p("created!");
 			} else {
-				echo "was not created: {$bugtype->error()}";
+				_p("was not created: {$bugtype->error()}");
 				$errored = true;
 			}
 
@@ -54,10 +75,11 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 
 	}
 	
-	echo "\nAbout to create the 'Anonymous' user...";
+	
+	_p("About to create the 'Anonymous' user...");
 	
 	if ($POD->getPerson(array('nick'=>'Anonymous'))->success()) {
-		echo "it already exists!";
+		_p("it already exists!");
 	} else {
 		$anon_user = $POD->getPerson();
 		$anon_user->nick = 'Anonymous';
@@ -67,17 +89,17 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$anon_user->save();
 
 		if ($anon_user->success()) {
-			echo "created!";
+			_p("created!");
 		} else {
-			echo "was not created: {$anon_user->error()}";
+			_p("was not created: {$anon_user->error()}");
 			$errored = true;
 		}		
 	}
 
 	if ($POD->getContent(array('stub'=>'welcome-message'))->success()) {
-		echo "\nThe welcome message already exists!";
+		_p("The welcome message already exists!");
 	} else {
-		echo "\nAbout to create the welcome message...";
+		_p("\nAbout to create the welcome message...");
 		$msg = $POD->getContent();
 		$msg->headline = 'Welcome Message';
 		$msg->type = 'interface';
@@ -86,15 +108,15 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		$msg->save();
 	
 		if ($msg->success()) {
-			echo "created!";
+			_p("created!");
 		} else {
-			echo "was not created: {$msg->error()}";
+			_p("was not created: {$msg->error()}");
 			$errored = true;
 		}
 	}
 
 	
-	echo "\nAbout to create textblocks for the 'Report a Bug' page";
+	_p("\nAbout to create textblocks for the 'Report a Bug' page");
 
 	$textblocks = array(
 		'Instructions report bug' => array(
@@ -113,9 +135,9 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	foreach($textblocks as $headline => $details) {
 		if ($POD->getContent(array('stub'=>$details[0]))->success()) {
-			echo "\n'$headline' already exists!";
+			_p("'$headline' already exists!");
 		} else {
-			echo "\nCreating '$headline': ";
+			_p("\nCreating '$headline': ");
 			$tb = $POD->getContent();
 			$tb->headline = $headline;
 			$tb->type = 'interface';
@@ -124,9 +146,9 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		
 			$tb->save();
 			if ($tb->success()) {
-				echo "success.";
+				_p("success.");
 			} else {
-				echo "failed.";
+				_p("failed.");
 				$errored = true;
 			}
 		}
@@ -134,7 +156,7 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	$POD->loadAvailablePods();
 	
-	echo "\nAbout to disable irrelevant pods";
+	_p("About to disable irrelevant pods");
 	$irrelevant_pods = array(
 		'core_dashboard',
 		'core_feeds',
@@ -148,11 +170,11 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	);
 	
 	foreach ($irrelevant_pods as $p) {
-		echo "\nUninstalling $p";
+		_p("Uninstalling $p");
 		$POD->disablePOD($p);
 	}
 	
-	echo "\nAbout to activate all the mediabugs pods... (except account creation)";
+	_p("About to activate all the mediabugs pods... (except account creation)");
 	$pods = array(
 		'bugs_api',
 		'akismet',
@@ -177,20 +199,20 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	);
 	
 	foreach($pods as $p) {
-		echo "\nInstalling $p...";
+		_p("Installing $p...");
 		$POD->enablePOD($p);
 	}
 	$POD->saveLibOptions();
 	if (!$POD->success()) {
-		echo "\nthere was an error installing/disabling these pods.";
+		_p("\nthere was an error installing/disabling these pods.");
 		$errored = true;
 	} else {
-		echo "\nSUCCESS!\n";
+		_p("\nSUCCESS!\n");
 		$POD->processIncludes();
-		echo $POD->writeHTACCESS(realpath("../"));
+		$POD->writeHTACCESS(realpath("../"));
 	}
 
-	echo "\nAbout to create the files directories:";
+	_p("\nAbout to create the files directories:");
 	$directories = array(
 		'./files',
 		'./files/images',
@@ -200,24 +222,28 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	foreach($directories as $dir) {
 		if (file_exists($dir)) {
-			echo "\n$dir already exists.";
+			_p("$dir already exists.");
 		}
 		else if (mkdir($dir, 0775, true)) {
-			echo "\n$dir was successfully created.";
+			_p("\n$dir was successfully created.");
 		} else {
-			echo "\nThere was an error trying to create $dir.";
+			_p("\nThere was an error trying to create $dir.");
 			$errored = true;
 		}
 	}
 
 	if ($errored) {
-		echo "\nThere were problems during the install process. Fix your setup and try again";
+		_p("There were problems during the install process. Fix your setup and try again");
 	} else {
 		$POD->setLibOptions('mediabugs_onetime_setup', '1');
 		$POD->setLibOptions('currentTheme','mediabugs');
 		$POD->saveLibOptions(true);
-		echo "\nAll done!";
-		echo "\nYou might want to go to {$POD->siteRoot(false)}/spvadmin to set publication details";
+		_p("All done!");
+		_p("You might want to go to {$POD->siteRoot(false)}/spvadmin to set publication details");
 	}
 	
 }
+?>
+</div>
+</body>
+</html>
