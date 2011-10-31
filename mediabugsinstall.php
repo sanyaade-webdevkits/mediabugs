@@ -50,18 +50,22 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 	
 	echo "\nAbout to create the 'Anonymous' user...";
 	
-	$anon_user = $POD->getPerson();
-	$anon_user->nick = 'Anonymous';
-	$anon_user->email = 'anonymous@example.com';
-	$anon_user->password = rand();
-	
-	$anon_user->save();
-
-	if ($anon_user->success()) {
-		echo "created!";
+	if ($POD->getPerson(array('nick'=>'Anonymous'))->success()) {
+		echo "it already exists!";
 	} else {
-		echo "was not created: {$anon_user->error()}";
-		$errored = true;
+		$anon_user = $POD->getPerson();
+		$anon_user->nick = 'Anonymous';
+		$anon_user->email = 'anonymous@example.com';
+		$anon_user->password = rand();
+	
+		$anon_user->save();
+
+		if ($anon_user->success()) {
+			echo "created!";
+		} else {
+			echo "was not created: {$anon_user->error()}";
+			$errored = true;
+		}		
 	}
 
 	echo "\nAbout to create the welcome message...";
