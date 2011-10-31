@@ -566,6 +566,10 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 	float: right;
 }
 
+#media_outlet_search {
+  display: none;
+}
+
 #spv_form {
 	width: 678px;
 	margin-left: auto;
