@@ -15,18 +15,6 @@
 
 		<h1>Sign in to <? $POD->siteName(); ?></h1>
 
-		<? if (isset($_COOKIE['claim'])) { 
-			$bug = $POD->getContent(array('id'=>$_COOKIE['claim']));
-			if ($bug->success()) { ?>
-				<div class="dialog alert">
-					<p>Once you've logged in,
-					we'll automatically add the bug you just submitted, "<?= $bug->headline; ?>",
-					to your account.</p>
-				</div>
-			<? }
-		} ?>
-
-
 		<form method="post" id="login" action="<? $POD->siteRoot(); ?>/login" class="valid">
 			<input type="hidden" name="redirect" value="<? echo htmlspecialchars($user->get('redirect')); ?>" />
 			<p class="input">
