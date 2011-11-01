@@ -113,11 +113,28 @@ if ($POD->libOptions('mediabugs_onetime_setup')) {
 		if ($msg->success()) {
 			_p("The welcome message was created!");
 		} else {
-			_pb("was not created: {$msg->error()}");
+			_pb("The welcome message was not created: {$msg->error()}");
 			$errored = true;
 		}
 	}
 
+	if ($POD->getContent(array('stub'=>'status-explanation'))->success()) {
+		_p("The status explanation page already exists!");
+	} else {
+		$msg = $POD->getContent();
+		$msg->headline = 'MediaBugs status explanations -- or, what do those icons mean?';
+		$msg->type = 'page';
+		$msg->body = "<p>MediaBugs uses a small set of categories and icons to represent the different states of a MediaBugs error report. In some cases the status changes automatically, and in others, either the person who originally reported the error or MediaBugs staff will change the status manually.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/open_20.png' alt='Open' border='0' /> Open</a></h2> <p>An open bug has been reported but not yet resolved. If the bug is filed by a registered MediaBugs participant it will immediately be displayed in our public listing of error reports. If it has been filed anonymously it will be reviewed by MediaBugs staff before being made public.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open:under discussion'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/open_under_discussion_20.png' alt='Open: Under Discussion' border='0' /> Open: Under Discussion</a></h2> <p>An open bug's status automatically changes to 'under discussion' once someone has posted a comment to it.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/open_responded_to_20.png' alt='Open: Responded To' border='0' /> Open: Responded to</a></h2> <p>An open bug's status changes to 'open: responded to' if the media outlet in question has provided a response to the error report. The change will happen automatically if anyone identifying him- or herself as a representative of that media outlet posts a comment. If you filed the error report you can also change its status to 'Responded to' if, for example, you received a response directly from the media outlet by email or through some other channel.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/closed_corrected_20.png' alt='Closed: Corrected' border='0' /> Closed: Corrected</a></h2> <p>An open bug can have its status changed to 'Closed: corrected' by the person who originally reported it (or by MediaBugs staff) if the media outlet has corrected the error or problem.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/closed_withdrawn_20.png' alt='Closed: Withdrawn' border='0' /> Closed: Withdrawn</a></h2> <p>You can change the status of a bug that you reported to 'Closed: withdrawn' if you have concluded that there's no error to be corrected after all.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/closed_unresolved_20.png' alt='Closed: Unresolved' border='0' /> Closed: Unresolved</a></h2> <p>After two months of inactivity on a bug report, MediaBugs will automatically mark it Closed: unresolved.</p> <h2><a href='{$POD->siteRoot(false)}/bugs/browse/status?q=open'><img src='{$POD->siteRoot(false)}/peoplepods/themes/mediabugs/img/status_icons/closed_off_topic_20.png' alt='Closed: Off Topic' border='0' />Off Topic</a></h2> <p>MediaBugs staff will change a bug report's status to 'off topic' for any of several reasons, most commonly in cases where the report lies outside our San Francisco Bay Area region, is not a correctable error, or is frivolous, inappropriate, or spam. Off Topic error reports will not show up in most of MediaBugs' listings and search results, but will be visible through the <a href='{$POD->siteRoot(false)}/bugs/browse/status?q=closed:off%20topic'>Off Topic listing.</a></p>";
+		$msg->stub = 'status-explanation';
+		$msg->save();
+	
+		if ($msg->success()) {
+			_p("The status explanation was not created!");
+		} else {
+			_pb("The status explanation was not created: {$msg->error()}");
+			$errored = true;
+		}
+	}
 	
 	_p("About to create textblocks for the 'Report a Bug' page");
 
