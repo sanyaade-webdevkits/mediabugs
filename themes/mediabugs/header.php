@@ -16,7 +16,7 @@
 /**********************************************/
 
 $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
-$topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
+$topPages = $POD->getContents(array('type'=>'page', 'stub:!='=>'status-explanation'), 'date ASC', 3);
 
 if ($adminRecord && $logo = $adminRecord->files()->contains('publication_img')) {
 	// we have a logo.
