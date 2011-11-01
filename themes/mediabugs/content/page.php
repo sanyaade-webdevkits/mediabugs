@@ -45,7 +45,7 @@ if ($doc->children()->count() > 0 || $doc->parent()) {
 
 		<h1><?= $doc->headline; ?></h1>
 		
-			<?= $doc->textFilters('body'); ?>
+			<? $doc->writeFormatted('body'); ?>
 						
 			<? if ($doc->isEditable()) { ?>
 					<a href="<? $doc->write('editlink'); ?>" title="Edit this post" class="edit_button">Edit</a>
