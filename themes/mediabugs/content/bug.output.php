@@ -39,6 +39,14 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 		</div>
 
 	<? } ?>
+	<? if ($POD->msg) { ?>
+	
+		<div class="info">
+			<?= strip_tags($POD->msg); ?>
+		</div>
+
+	<? } ?>
+
 	<div id="bug_output">
 	
 		<?php if ($POD->isAuthenticated() && $POD->currentUser()->adminUser): ?>
