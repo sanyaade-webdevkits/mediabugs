@@ -191,9 +191,9 @@ function leftShift32($number, $steps) {
 	if (isset($message)) { 
 		echo "<div class='info'>$message</div>";
 	}
-	if (!$POD->isAuthenticated() && $_GET['msg'] == "Bug saved!"){ 
-		$POD->useCache(false);
-	}
+
+	$POD->useCache(false);
+
 	$doc->output($output_template);
 	$POD->footer();
 	
