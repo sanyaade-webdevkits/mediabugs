@@ -23,7 +23,7 @@
 	} else {
 		$lockdown = null;
 	}
-	$POD = new PeoplePod(array('debug'=>0,'lockdown'=>$lockdown,'authSecret'=>$_COOKIE['pp_auth']));
+	$POD = new PeoplePod(array('debug'=>0,'lockdown'=>$lockdown,'authSecret'=>@$_COOKIE['pp_auth']));
 
 	$POD->header();
 	if ($POD->isAuthenticated()) { 

@@ -36,6 +36,8 @@
 		private $JOINS = array();
 		private $UNSAVED_META = array();
 		
+		
+		private $QUERY_JOINS = array();
 		private $FIELD_PROCESSORS = array();
 		static private $EXTRA_METHODS = array();
 				
@@ -711,7 +713,7 @@
 		function generateFrom($from,&$conditions,$join_type='LEFT',$existing_joins=null) { 
 			
 			# $joins will contain a list of all the necessary joins which will be combined at the end to generate the FROM
-			$joins = array();
+//			$joins = array();
 
 			// setup a default $from
 			if(!$from) { 
@@ -780,40 +782,40 @@
 				
 					// if we are querying users... do something special.
 					if (isset($original_conditions['flag.itemId']) && $this->TYPE=='user') { 
-						if (!isset($joins['flags'])) { 
+						if (!isset($this->QUERY_JOINS['flags'])) { 
 
 							if (isset($original_conditions['flag.id']) && $original_conditions['flag.id'] == "null") { 
-								$joins['flags'] = "left join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
+								$this->QUERY_JOINS['flags'] = "left join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
 							} else {
-								$joins['flags'] = "inner join flags flag on flag.userId=" . $this->table_shortname . ".id";
+								$this->QUERY_JOINS['flags'] = "inner join flags flag on flag.userId=" . $this->table_shortname . ".id";
 							}
 							if (isset($original_conditions['flag.name'])) { 
-								$joins['flags'] .= " and flag.name='" . mysql_real_escape_string($original_conditions['flag.name']) . "'";
+								$this->QUERY_JOINS['flags'] .= " and flag.name='" . mysql_real_escape_string($original_conditions['flag.name']) . "'";
 								unset($conditions['flag.name']);
 							}
 							if (isset($original_conditions['flag.userId'])) { 
-								$joins['flags'] .= " and flag.userId='" . mysql_real_escape_string($original_conditions['flag.userId']) . "'";
+								$this->QUERY_JOINS['flags'] .= " and flag.userId='" . mysql_real_escape_string($original_conditions['flag.userId']) . "'";
 								unset($conditions['flag.userId']);
 							}
 
 						}						
 					} else { 					
 						// if we are querying another type	
-						if (!isset($joins['flags'])) { 
+						if (!isset($this->QUERY_JOINS['flags'])) { 
 
 							if (isset($original_conditions['flag.id']) && $original_conditions['flag.id'] == "null") { 
-								$joins['flags'] = "left join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
+								$this->QUERY_JOINS['flags'] = "left join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
 								
 							} else {
-								$joins['flags'] = "inner join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
+								$this->QUERY_JOINS['flags'] = "inner join flags flag on flag.itemId=" . $this->table_shortname . ".id and flag.type='" . $this->TYPE . "'";
 							
 							}
 							if (isset($original_conditions['flag.name'])) { 
-								$joins['flags'] .= " and flag.name='" . mysql_real_escape_string($original_conditions['flag.name']) . "'";
+								$this->QUERY_JOINS['flags'] .= " and flag.name='" . mysql_real_escape_string($original_conditions['flag.name']) . "'";
 								unset($conditions['flag.name']);
 							}
 							if (isset($original_conditions['flag.userId'])) { 
-								$joins['flags'] .= " and flag.userId='" . mysql_real_escape_string($original_conditions['flag.userId']) . "'";
+								$this->QUERY_JOINS['flags'] .= " and flag.userId='" . mysql_real_escape_string($original_conditions['flag.userId']) . "'";
 								unset($conditions['flag.userId']);
 							}
 						}			
@@ -829,13 +831,13 @@
 						$obj= $this->referenceObject($linked_table);
 
 						if (!$obj || $obj->isRealField($field)) {
-							$joins[$linked_table] = $this->JOINS[$linked_table];
+							$this->QUERY_JOINS[$linked_table] = $this->JOINS[$linked_table];
 						} else {
 						
-							$joins[$linked_table] = $this->JOINS[$linked_table];
+							$this->QUERY_JOINS[$linked_table] = $this->JOINS[$linked_table];
 						
-							if (!$existing_joins['meta_' . $linked_table]["{$linked_table}_m_{$field}"]) {
-								$joins['meta_' . $linked_table]["{$linked_table}_m_{$field}"] = "{$join_type} JOIN meta {$linked_table}_m_{$field} on {$linked_table}_m_{$field}.itemId={$linked_table}.id and {$linked_table}_m_{$field}.type='" . $obj->TYPE . "' and {$linked_table}_m_{$field}.name='$field'";
+							if (!@$this->QUERY_JOINS['meta_' . $linked_table]["{$linked_table}_m_{$field}"]) {
+								$this->QUERY_JOINS['meta_' . $linked_table]["{$linked_table}_m_{$field}"] = "{$join_type} JOIN meta {$linked_table}_m_{$field} on {$linked_table}_m_{$field}.itemId={$linked_table}.id and {$linked_table}_m_{$field}.type='" . $obj->TYPE . "' and {$linked_table}_m_{$field}.name='$field'";
 							}
 							unset($conditions["{$linked_table}.{$field}{$operator}"]);
 							if ($value!='null') { 
@@ -858,8 +860,8 @@
 					
 					if (!$this->isRealField($field)) {
 						
-						if (!$existing_joins['meta_' . $linked_table]["{$linked_table}_m_{$field}"]) {
-							$joins['meta_' . $linked_table]["{$linked_table}_m_{$field}"] = "{$join_type} JOIN meta {$linked_table}_m_{$field} on {$linked_table}_m_{$field}.itemId={$linked_table}.id and {$linked_table}_m_{$field}.type='" . $this->TYPE . "' and {$linked_table}_m_{$field}.name='$field'";
+						if (!@$this->QUERY_JOINS['meta_' . $linked_table]["{$linked_table}_m_{$field}"]) {
+							$this->QUERY_JOINS['meta_' . $linked_table]["{$linked_table}_m_{$field}"] = "{$join_type} JOIN meta {$linked_table}_m_{$field} on {$linked_table}_m_{$field}.itemId={$linked_table}.id and {$linked_table}_m_{$field}.type='" . $this->TYPE . "' and {$linked_table}_m_{$field}.name='$field'";
 						}
 
 						if ($computed_field != $field) { 
@@ -938,22 +940,22 @@
 				if (preg_match("/^or(\d+)?/i",$field)) { 
 					// generate joins based on this OR
 					//echo "Processing an OR<br />";
-					$this->generateFrom($from,$value,'LEFT',$joins);
+					$this->generateFrom($from,$value,'LEFT');
 					$conditions[$field] = $value;
 				} else if (preg_match("/^and(\d+)?/i",$field)) {
 					// generate joins based on this AND
 					//echo "Processing an AND<br />";
-					$this->generateFrom($from,$value,'LEFT',$joins);
+					$this->generateFrom($from,$value,'LEFT');
 					$conditions[$field] = $value;
 				} else if (preg_match("/^\!or(\d+)?/i",$field)) { 
 					// generate joins based on this OR
 					//echo "Processing an OR<br />";
-					$this->generateFrom($from,$value,'LEFT',$joins);
+					$this->generateFrom($from,$value,'LEFT');
 					$conditions[$field] = $value;
 				} else if (preg_match("/^\!and(\d+)?/i",$field)) {
 					// generate joins based on this AND
 					//echo "Processing an AND<br />";
-					$this->generateFrom($from,$value,'LEFT',$joins);
+					$this->generateFrom($from,$value,'LEFT');
 					$conditions[$field] = $value;
 				}
 			}
@@ -963,18 +965,18 @@
 			
 			
 			if ($this->TYPE == "user") { 
-				if (isset($joins['g'])) { $joins['mem'] = null; }
+				if (isset($this->QUERY_JOINS['g'])) { $this->QUERY_JOINS['mem'] = null; }
 			}
 			if ($this->TYPE == "tags") { 
-				if (isset($joins['d'])) { $joins['tr'] = null; }
-				if (isset($joins['g'])) { $joins['tr'] = null; }
-				if (isset($joins['f'])) { $joins['tr'] = null; }
-				if (isset($joins['c'])) { $joins['tr'] = null; }
-				if (isset($joins['u'])) { $joins['tr'] = null; }
+				if (isset($this->QUERY_JOINS['d'])) { $this->QUERY_JOINS['tr'] = null; }
+				if (isset($this->QUERY_JOINS['g'])) { $this->QUERY_JOINS['tr'] = null; }
+				if (isset($this->QUERY_JOINS['f'])) { $this->QUERY_JOINS['tr'] = null; }
+				if (isset($this->QUERY_JOINS['c'])) { $this->QUERY_JOINS['tr'] = null; }
+				if (isset($this->QUERY_JOINS['u'])) { $this->QUERY_JOINS['tr'] = null; }
 
 			}
 		
-			$from = $from . " " . r_implode(" ",$joins);
+			$from = $from . " " . r_implode(" ",$this->QUERY_JOINS);
 			// update conditions array
 			return $from;
 		
@@ -1203,7 +1205,13 @@
 			if (!$select) {
 				$select = "SELECT DISTINCT " . $this->table_shortname . ".*,(TIME_TO_SEC(TIMEDIFF(NOW()," . $this->table_shortname . ".date)) / 60) as minutes ";
 			}
-			$select .= $this->specialSelect();
+
+
+			if (!preg_match("/totalCount/",$select)) { 
+				$select .= $this->specialSelect();
+			}
+
+
 
 			if (!$sort) { 
 				$sort = $this->table_shortname . ".date DESC";
@@ -1218,6 +1226,9 @@
 			
 			if ($offset == null || $offset == '') { $offset = 0; }
 			if ($count == null || $count == '') { $count = 100; } 
+
+		
+			$this->QUERY_JOINS = array();
 
 			$from = $this->generateFrom($from,$conditions);
 			$where = $this->generateWhere($conditions,$glue);
@@ -1385,8 +1396,10 @@
 			return null;
 		}
 
-	
-		if (!$this->hasFlag($flag,$person)) {
+		//error_log("! addFlag $flag to {$this->id} with val = {$value}");
+		$current = $this->hasFlag($flag,$person);
+		//error_log("! current hasFlag value == {$current}");
+		if (($current===false || $current===null)) {
 
 			$sql = "INSERT INTO flags(type,itemId,name,value,userId,date) VALUES ('" . $this->TYPE . "'," . $this->get('id') . ",'" . mysql_real_escape_string($flag) . "','" . mysql_real_escape_string($this->POD->handleUTF8($value)) . "'," . $person->get('id') . ",NOW());";
 			$this->POD->tolog($sql,2);
@@ -1401,7 +1414,7 @@
 			
 		} else {
 
-		
+			//error_log("! removing flag first because $current != $value");
 			if ($this->hasFlag($flag,$person)!=$value || $force == true) {  
 				$this->removeFlag($flag,$person);
 				$this->addFlag($flag,$person,$value);
@@ -1471,11 +1484,11 @@
 
 		if ($person) { 
 			$fact = $person->get('id') . "-$flag-" . $this->get('id');
-			$this->POD->cachefact($fact,0);
+			$this->POD->cachefact($fact,false);
 		}
 
 		$fact = "$flag-" . $this->get('id');
-		$this->POD->cachefact($fact,0);
+		$this->POD->cachefact($fact,false);
 
 		// clear count cache
 		$fact = $this->get('id') . "-$flag-count";
@@ -1630,6 +1643,7 @@
 
 		$val = $this->POD->factcache($fact);
 		if (!($val === null)) { 
+			//error_log("! Got a cached value for $fact of $val and that's all i need!");
 			$this->success = true;
 			return $val;
 		}
@@ -1646,12 +1660,15 @@
 			$this->success = true;
 			$num = mysql_num_rows($res);
 			if ($num < 1) {
+				//error_log("! didn't find any db record, returning false");
 				$this->POD->cachefact($fact,false);
 				return false;
 
 			} else {
 				$v = mysql_fetch_assoc($res);
 				$this->POD->cachefact($fact,$v['value']);
+				//error_log("!Found a db record, returning " . $v['value']);
+
 				return $v['value'];
 			} 
 		} else {

@@ -65,7 +65,7 @@ function leftShift32($number, $steps) {
 		exit;
 	}
 
-	if ($doc->author()->id == $POD->anonymousAccount() && $doc->status=='new') { 
+	if ($doc->author()->id == $POD->anonymousAccount() && $doc->status=='new' && !$doc->who_name) { 
 		if (!($_GET['msg'] == "Bug saved!") && !($POD->isAuthenticated() && $POD->currentUser()->adminUser)) {
 
 			$POD->header($doc->headline);

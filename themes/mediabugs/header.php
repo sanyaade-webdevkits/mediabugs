@@ -18,7 +18,7 @@
 $adminRecord = $POD->getContents(array('type'=>'admin_record'))->getNext();
 $topPages = $POD->getContents(array('type'=>'page'), 'date ASC', 3);
 
-if ($adminRecord && $logo = $adminRecord->files()->contains('publication_img')) {
+if ($adminRecord && $logo = $adminRecord->files()->contains('file_name','publication_img')) {
 	// we have a logo.
 } else {
 	$logo = false;
@@ -133,12 +133,6 @@ if ($adminRecord && $logo = $adminRecord->files()->contains('publication_img')) 
 									<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/date?sort=modification">Browse by Recent Activity</a></li>
 									<li>
 										<a href="<? $POD->siteRoot(); ?>/bugs/browse/type">Browse by Type</a>
-										<ul>
-											<? foreach ($bug_types as $type) { ?>
-												<li><a href="<? $POD->siteRoot(); ?>/bugs/browse/type?q=<?= $type->headline; ?>"><?= $type->headline; ?></a></li>
-											<? } ?>
-										</ul>
-										<div class="clearer"></div>
 									</li>
 								</ul>
 							</div>

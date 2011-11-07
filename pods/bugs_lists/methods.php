@@ -105,8 +105,15 @@ function bugTargets($POD,$count=20,$offset=0,$conditions=null) {
 }
 
 function interestingBugs($POD,$count=20,$offset=0) {
-	return $POD->getContents(array('type'=>'bug','flag.name'=>'featured','weight:!='=>'null'),'d_m_weight.value+0 asc',$count,$offset);
+//	return $POD->getContents(array('type'=>'bug','flag.name'=>'featured','weight:!='=>'null'),'d_m_weight.value+0 asc',$count,$offset);
+
+	$mediabugs_account = $POD->anonymousAccount();
+
+	return $POD->getContents(array('type'=>'bug','or'=>array('who_name:!='=>'null','!and'=>array('userId'=>$mediabugs_account,'status'=>'new'))),'d.DATE desc',$count,$offset);
+
+
 }
+
 
 function bugTypes($POD) {
 
@@ -120,7 +127,7 @@ function recentBugs($POD,$count=20,$offset=0,$sort='DESC') {
 
 	$mediabugs_account = $POD->anonymousAccount();
 
-	return $POD->getContents(array('type'=>'bug','bug_status:!='=>'closed:off topic','!and'=>array('userId'=>$mediabugs_account,'status'=>'new')),"d.date $sort",$count,$offset);
+	return $POD->getContents(array('type'=>'bug','bug_status:!='=>'closed:off topic','or'=>array('who_name:!='=>'null','!and'=>array('userId'=>$mediabugs_account,'status'=>'new'))),"d.date $sort",$count,$offset);
 }
 
 

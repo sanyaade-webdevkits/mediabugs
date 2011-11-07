@@ -176,7 +176,8 @@ class Browser {
 		}
 		
 		$query['type'] = 'bug';
-		$query['!and'] = array('userId'=>$POD->anonymousAccount(),'status'=>'new');
+		$query['or'] = array('who_name:!='=>'null','!and'=>array('userId'=>$POD->anonymousAccount(),'status'=>'new'));
+//		$query['!and'] = array('userId'=>$POD->anonymousAccount(),'status'=>'new');
 		return $POD->getContents($query,$sortBy,10,$offset);
 
 	}
