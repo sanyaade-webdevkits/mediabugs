@@ -80,25 +80,53 @@ function leftShift32($number, $steps) {
 
 	if (isset($_POST['comment'])) {  // this is a request to post a comment
 		if (!$POD->isAuthenticated()) {
-			$POD->changeActor(array(
-				'id' => $POD->anonymousAccount()
-			));
 			// is their facebook id not set? if so we must subject them to captcha stuff
 			if (!$_POST['meta_who_fb_id'] || !is_numeric($_POST['meta_who_fb_id'])) {
 				// did they supply the appropriate captcha?
 				if (!$_POST['captcha'] || !$_POST['captchaHash']) {
 					// no captcha provided. probably a spambot.
-					header("Location:{$doc->permalink}?msg=".
-						urlencode('Please fill in the captcha field and try again.'));
+					$POD->error_msg = 'Please fill in the captcha field and try again.';
+					
+					// can't just lose all the input we just provided.
+					foreach ($_POST as $key=>$value) {
+						$new->$key = $value;
+						if (preg_match("/^comment(.*)/",$key,$match)) { 
+							$POD->$key = $value;
+						}
+					}
+					$POD->header($doc->get('headline')  );
+					$POD->msg = "Please fill in the captcha field and try again.";
+
+					$POD->useCache(false);
+
+					$doc->output($output_template);
+					$POD->footer();
 					exit;
 				} else if (rpHash($_POST['captcha']) != $_POST['captchaHash']) {
 					// captcha does not match. try again
-					header("Location:{$doc->permalink}?msg=".
-						urlencode('Your captcha response did not match the challenge. Please try again.'));
+					$POD->error_msg = 'Please fill in the captcha field and try again.';
+					
+					// can't just lose all the input we just provided.
+					foreach ($_POST as $key=>$value) {
+						$new->$key = $value;
+						if (preg_match("/^comment(.*)/",$key,$match)) { 
+							$POD->$key = $value;
+						}
+					}
+					$POD->header($doc->get('headline')  );
+					$POD->msg = "Your captcha response did not match the challenge. Please try again.";
+
+					$POD->useCache(false);
+
+					$doc->output($output_template);
+					$POD->footer();
 					exit;
 				}
 			}
 		}
+		$POD->changeActor(array(
+			'id' => $POD->anonymousAccount()
+		));
 
 		$comment = $doc->addComment($_POST['comment']);
 		if (!$comment || !$comment->success()) {

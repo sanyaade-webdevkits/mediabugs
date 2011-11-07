@@ -183,7 +183,7 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 					<?php endif ?>
 				</p>
 				
-				<p class="input"><textarea name="comment" class="text required" id="comment"></textarea></p>
+				<p class="input"><textarea name="comment" class="text required" id="comment"><?php echo $POD->comment ?></textarea></p>
 
 				<?php if (!$POD->currentUser()->adminUser): ?>
 					<p class='input'>
@@ -254,11 +254,11 @@ $fb_app_id = $POD->getContents(array('type'=>'admin_record'))->getNext()->fb_app
 
 					<p class='input hide_if_fb_authd'>
 						<label for='comment_who_name'>Your Name <span class="required">*</span></label>
-						<input id='comment_who_name' name='comment_who_name' type='text' class='text required'>
+						<input id='comment_who_name' name='comment_who_name' type='text' class='text required' value='<? echo $POD->comment_who_name ?>'>
 					</p>
 					<p class='input hide_if_fb_authd'>
 						<label for='comment_who_email'>Your Email <span class="required">*</span></label>
-						<input id='comment_who_email' name='comment_who_email' type='text' class='email required'>
+						<input id='comment_who_email' name='comment_who_email' type='text' class='email required' value='<?php echo $POD->comment_who_email ?>'>
 					</p>
 					<p class='input hide_if_fb_authd'>
 						<label for='captcha'>Captcha <span class="required">*</span></label>
