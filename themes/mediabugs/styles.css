@@ -628,7 +628,9 @@ p.nextbutton span { padding-top:10px; padding-left:10px; float: left; display:bl
 
 }
 
-
+.error_message.bug_form_error {
+  margin-bottom: 20px;
+}
 
 #add_comment .hide_if_fb_authd .realperson-challenge {
 	float: right;
