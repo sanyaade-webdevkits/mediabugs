@@ -44,6 +44,8 @@ if (!$doc->saved() || $POD->currentUser()->adminUser || (time() - strtotime($doc
 
 <?php if ($_GET['msg']): ?>
 <div class='error_message'><?php echo htmlspecialchars($_GET['msg']) ?></div>
+<?php elseif ($POD->error_msg) : ?>
+<div class='error_message'><?php echo htmlspecialchars($POD->error_msg) ?></div>
 <?php endif ?>
 <ul id="bug_tabs">
 	<? if (!$doc->saved()) { ?>
